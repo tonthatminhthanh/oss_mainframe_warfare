@@ -5,7 +5,7 @@ import 'package:mw_project/actors/placeable_entity.dart';
 
 import '../components/team.dart';
 
-abstract class Projectile extends Entity with CollisionCallbacks
+abstract class Projectile extends SpriteComponent with CollisionCallbacks
 {
   final bool _isActive = true;
   late Team _myTeam;

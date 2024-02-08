@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:mw_project/actors/placeable_entity.dart';
 import 'package:mw_project/actors/tile.dart';
@@ -5,12 +8,19 @@ import 'package:mw_project/actors/tile.dart';
 class FixedTile extends MyTile
 {
   late bool _isActive = true;
-  FixedTile({super.occupant});
+  FixedTile({super.occupant, required Vector2 position, required Vector2 size})
+      : super(position: position, size: size);
+
+  @override
+  FutureOr<void> onLoad() {
+    debugMode = true;
+    super.onLoad();
+  }
 
   @override
   bool canPlaceOn()
   {
-    if(getStatus() && isOccupied())
+    if(getStatus() && isNotOccupied())
       {
         return true;
       }
