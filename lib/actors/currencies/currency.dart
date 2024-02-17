@@ -68,7 +68,7 @@ class Currency extends SpriteComponent with TapCallbacks, HasGameRef<MainframeWa
 
   @override
   void onTapDown(TapDownEvent event) {
-    gameRef.director.addMoney(this, _value);
+    gameRef.getDirector().addMoney(this, _value);
     removeFromParent();
     super.onTapDown(event);
   }

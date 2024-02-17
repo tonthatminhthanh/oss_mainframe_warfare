@@ -1,0 +1,4 @@
+enum VirusState
+{
+  running, attacking
+}

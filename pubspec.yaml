@@ -67,6 +67,10 @@ flutter:
     - assets/images/sprites/currencies/
     - assets/images/sprites/computers/
     - assets/images/sprites/computers/power_supply/
+    - assets/images/sprites/computers/rifleman/
+    - assets/images/sprites/viruses/
+    - assets/images/sprites/viruses/basic_bot/
+    - assets/images/sprites/projectiles/
     - assets/images/level/
 
   # An image asset can refer to one or more resolution-specific "variants", see

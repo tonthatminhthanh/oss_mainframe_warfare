@@ -14,20 +14,21 @@ enum PowerSupplyState {
   production
 }
 
-class PowerSupply extends PlaceableEntity with CollisionCallbacks
+class PowerSupply extends PlaceableEntity
 {
   @override
   // TODO: implement debugMode
   bool get debugMode => super.debugMode;
-  final String characterName = "power_supply";
   final int productionInterval = 20;
   double elapsedSecs = 0;
   late Timer interval;
   late SpriteAnimation _idleAnimation;
   late SpriteAnimation _productionAnimation;
+  double stepTime = 0.075;
 
-  PowerSupply({required Team myTeam, int hp = DEFAULT_COMPUTER_HP, double rechargeTime = FAST_RECHARGE})
-  : super(myTeam: myTeam, hp: hp, rechargeTime: rechargeTime)
+  PowerSupply({ String characterName = "power_supply",
+    required Team myTeam, int hp = DEFAULT_COMPUTER_HP, double rechargeTime = FAST_RECHARGE})
+  : super(myTeam: myTeam, hp: hp, rechargeTime: rechargeTime, characterName: characterName)
   {
     interval
     = Timer(1, repeat: true, onTick: () => elapsedSecs += 1,);
@@ -36,8 +37,8 @@ class PowerSupply extends PlaceableEntity with CollisionCallbacks
   @override
   FutureOr<void> onLoad()
   {
-    add(RectangleHitbox(position: Vector2(16, 0) ,size: Vector2(32, 64)));
-    loadAllAnimation();
+    setHitbox(RectangleHitbox(position: Vector2(16, 0) ,size: Vector2(32, 64)));
+    addHitbox();
     interval.reset();
     interval.start();
     debugMode = true;
@@ -45,20 +46,15 @@ class PowerSupply extends PlaceableEntity with CollisionCallbacks
   }
 
   @override
-  void entityMovement() {
+  void entityMovement(double dt) {
     // TODO: implement entityMovement
     ;
   }
 
   @override
-  void kill() {
-    // TODO: implement kill
-  }
-
-  @override
   void loadAllAnimation() {
-    _idleAnimation = loadAnimation("idle", 11, 0.075, true);
-    _productionAnimation = loadAnimation("production", 11, 0.075, false);
+    _idleAnimation = loadAnimation("idle", 11, stepTime, true);
+    _productionAnimation = loadAnimation("production", 11, stepTime, false);
     // TODO: implement loadAllAnimation
 
     animations = {
@@ -67,20 +63,6 @@ class PowerSupply extends PlaceableEntity with CollisionCallbacks
     };
 
     current = PowerSupplyState.idle;
-  }
-
-  @override
-  SpriteAnimation loadAnimation(String name, int amount, double stepTime, bool loop) {
-    // TODO: implement loadAnimation
-    return SpriteAnimation.fromFrameData(
-      game.images.fromCache("sprites/computers/$characterName/$characterName" + "_" + "$name.png"),
-      SpriteAnimationData.sequenced(
-          amount: amount,
-          stepTime: stepTime,
-          textureSize: Vector2.all(64),
-        loop: loop
-      )
-    );
   }
 
   @override
@@ -114,4 +96,6 @@ class PowerSupply extends PlaceableEntity with CollisionCallbacks
         };
       }
   }
+
+
 }

@@ -1,21 +1,92 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:mw_project/actors/tile.dart';
 
 import '../components/team.dart';
 import 'entity.dart';
 
-abstract class PlaceableEntity extends Entity
+abstract class PlaceableEntity extends Entity with CollisionCallbacks
 {
+  RectangleHitbox? _rectHitbox;
   late Team _myTeam;
   late int _hp;
   late double _rechargeTime;
   double _speedModifier = 1.0;
+  late String _characterName;
+  bool _isFlipped = false;
+  bool _canAttack = true;
+  MyTile? _tile;
 
-  PlaceableEntity({required Team myTeam, required int hp, required double rechargeTime})
+  PlaceableEntity({required Team myTeam, required String characterName,
+    required int hp, required double rechargeTime})
   {
+    _characterName = characterName;
     scale = Vector2(2, 2);
     _myTeam = myTeam;
     _hp = hp;
     _rechargeTime = rechargeTime;
+  }
+
+  @override
+  void update(double dt)
+  {
+    entityMovement(dt);
+    checkHealth();
+    super.update(dt);
+  }
+
+  @override
+  void checkHealth()
+  {
+    if(_hp <= 0)
+      {
+        print("Removing...");
+        removeFromTile();
+        removeFromParent();
+      }
+  }
+
+  @override
+  SpriteAnimation loadAnimation(String name, int amount, double stepTime, bool loop)
+  {
+    String team = "";
+    switch(getTeam())
+    {
+      case Team.defender:
+        team = "computers";
+        break;
+      case Team.attacker:
+        team = "viruses";
+        break;
+    }
+
+    return SpriteAnimation.fromFrameData(
+        game.images.fromCache("sprites/$team/$_characterName/$_characterName" + "_" + "$name.png"),
+        SpriteAnimationData.sequenced(
+            amount: amount,
+            stepTime: stepTime,
+            textureSize: Vector2.all(64),
+            loop: loop
+        )
+    );
+  }
+
+  void setHitbox(RectangleHitbox rectangleHitbox)
+  {
+    _rectHitbox = rectangleHitbox;
+  }
+
+  RectangleHitbox? getHitbox()
+  {
+    return _rectHitbox;
+  }
+
+  void addHitbox()
+  {
+    if(getHitbox() != null)
+    {
+      add(getHitbox()!);
+    }
   }
 
   void swap(Team otherTeam)
@@ -38,6 +109,11 @@ abstract class PlaceableEntity extends Entity
     _hp -= damage;
   }
 
+  int getHp()
+  {
+    return _hp;
+  }
+
   double getSpeedModifier()
   {
     return _speedModifier;
@@ -51,5 +127,28 @@ abstract class PlaceableEntity extends Entity
   Team getTeam()
   {
     return _myTeam;
+  }
+
+  void setFlip(bool value)
+  {
+    _isFlipped = value;
+  }
+
+  bool getFlipState()
+  {
+    return _isFlipped;
+  }
+
+  void setTile(MyTile tile)
+  {
+    _tile = tile;
+  }
+
+  void removeFromTile()
+  {
+    if(_tile != null)
+      {
+        _tile!.removeOccupant();
+      }
   }
 }

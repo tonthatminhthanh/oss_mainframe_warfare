@@ -1,24 +1,58 @@
 import 'dart:async';
 
 import 'package:flame/camera.dart';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import 'package:flame/geometry.dart';
+import 'package:flame/image_composition.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mw_project/actors/computers/power_supply.dart';
 import 'package:mw_project/actors/directors/match_director.dart';
 import 'package:mw_project/components/team.dart';
 import 'package:mw_project/levels/level.dart';
 
+import 'actors/placeable_entity.dart';
+
 class MainframeWarfare extends FlameGame with HasCollisionDetection
 {
+  double screenWidth = 1280;
+  double screenHeight = 768;
   late CameraComponent cam;
-  late MatchDirector director;
+  late MatchDirector _director;
   
   MatchDirector getDirector()
   {
-    return director;
+    return _director;
   }
-  
+
+  RaycastResult? getRaycastResult(Ray2 ray, Team myTeam, double maxDistance)
+  {
+    final result = collisionDetection.raycast(ray,
+      maxDistance: maxDistance,
+      hitboxFilter: (candidate) {
+        var candidateParent = candidate.parent;
+        if(candidateParent is PlaceableEntity)
+        {
+          if(candidateParent.getTeam() != myTeam)
+          {
+            return true;
+          }
+          else
+          {
+            return false;
+          }
+        }
+        else
+        {
+          return false;
+        }
+      },
+    );
+
+    return result;
+  }
+
   @override
   final world = Level(levelName: 'level');
 
@@ -26,15 +60,15 @@ class MainframeWarfare extends FlameGame with HasCollisionDetection
   FutureOr<void> onLoad() async {
     await images.loadAllImages();
     
-    director = MatchDirector(defenderMoney: ValueNotifier(125));
+    _director = MatchDirector(defenderMoney: ValueNotifier(125));
     cam = CameraComponent.withFixedResolution(
         world: world,
-        width: 1280,
-        height: 768
+        width: screenWidth,
+        height: screenHeight
     );
     cam.viewfinder.anchor = Anchor.topLeft;
 
-    addAll([cam, world, director]);
+    addAll([cam, world, _director]);
 
     return super.onLoad();
   }

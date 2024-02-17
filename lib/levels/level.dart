@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
+import 'package:flame/geometry.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:mw_project/actors/computers/power_supply.dart';
 import 'package:mw_project/actors/fixed_tile.dart';

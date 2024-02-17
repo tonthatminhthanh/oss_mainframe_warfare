@@ -6,6 +6,8 @@ import 'package:mw_project/actors/directors/match_director.dart';
 import 'package:mw_project/actors/placeable_entity.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 
+import '../components/team.dart';
+
 abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<MainframeWarfare>
 {
   PlaceableEntity? _occupant;
@@ -38,10 +40,20 @@ abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<Ma
     print("Status: ${getStatus()}, is not occupied: ${isNotOccupied()}");
     if(canPlaceOn())
       {
-        _occupant = entity;
+        if(entity.getTeam() == Team.defender)
+          {
+            _occupant = entity;
+            _occupant!.setTile(this);
+          }
         gameRef.world.add(entity);
-        entity.setPosition(Vector2(position.x, position.y));
-        print(entity.position);
+        if(entity.getFlipState())
+          {
+            entity.setPosition(Vector2(position.x + 128, position.y));
+          }
+        else
+          {
+            entity.setPosition(Vector2(position.x, position.y));
+          }
       }
   }
 
@@ -57,11 +69,11 @@ abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<Ma
     super.onTapDown(event);
   }
 
-  void removeEntity()
+  void removeOccupant()
   {
     if(_occupant != null)
       {
-        remove(_occupant!);
+        _occupant = null;
       }
   }
 }
