@@ -1,4 +1,4 @@
-# mw_project
+# Mainframe Warfare
 
 A tower defense game built on Flame game engine
 
