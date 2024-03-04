@@ -2,15 +2,9 @@
 
 A tower defense game built on Flame game engine
 
-## Getting Started
+Trò chơi phòng thủ tháp được thực hiện trên phần mềm game engine Flame.
 
-This project is a starting point for a Flutter application.
+## ĐỒ ÁN TỐT NGHIỆP
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Sinh viên thực hiện (Student's name): Tôn Thất Minh Thành
+Giảng viên hướng dẫn (supervisor): Huỳnh Tuấn Anh
