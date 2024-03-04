@@ -5,13 +5,20 @@ import 'package:flame/geometry.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:mw_project/actors/computers/power_supply.dart';
 import 'package:mw_project/actors/fixed_tile.dart';
-import 'package:mw_project/components/team.dart';
+import 'package:mw_project/actors/tile.dart';
+import 'package:mw_project/constants/team.dart';
+import 'package:mw_project/mainframe_warfare.dart';
+import 'package:mw_project/ui/hud.dart';
 
-class Level extends World
+import '../actors/placeable_entity.dart';
+
+class Level extends World with HasGameRef<MainframeWarfare>
 {
   late final String _levelName;
   late TiledComponent _level;
-  List<FixedTile> _tiles = [];
+  List<MyTile> _tiles = [];
+  int _attackersCountInCurrentWave = 0;
+  int _attackersCount = 0;
 
   Level({required String levelName})
   {
@@ -22,8 +29,44 @@ class Level extends World
   FutureOr<void> onLoad() async {
     _level = await TiledComponent.load("$_levelName.tmx", Vector2.all(64));
     add(_level);
+    add(Hud());
     _spawnObject();
     return super.onLoad();
+  }
+
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+  }
+
+  void addToAttackersCount()
+  {
+    _attackersCount++;
+    _attackersCountInCurrentWave = _attackersCount;
+  }
+
+  void reduceAttackersCount()
+  {
+    _attackersCount--;
+    if(canCallNewWave())
+      {
+        game.getDirector().callNewWave();
+        _attackersCountInCurrentWave = 0;
+      }
+  }
+
+  bool canCallNewWave()
+  {
+    return _attackersCount <= _attackersCountInCurrentWave / 2;
+  }
+
+  void spawnAttackers(List<PlaceableEntity> attackers)
+  {
+    for(final attacker in attackers)
+      {
+        add(attacker);
+      }
   }
 
   void _spawnObject()
@@ -42,9 +85,15 @@ class Level extends World
                   position: Vector2(obj.x, obj.y),
                 );
                 add(fixedTile);
+                _tiles.add(fixedTile);
                 break;
             }
           }
       }
+  }
+
+  List<MyTile> getTilesList()
+  {
+    return _tiles;
   }
 }

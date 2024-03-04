@@ -1,0 +1,16 @@
+{
+  "current_wave": 10,
+  "money": 150,
+  "tiles": [
+    {
+      "type": "power_supply",
+      "x": 128,
+      "y": 128
+    },
+    {
+      "type": "rifleman",
+      "x": 128,
+      "y": 256
+    }
+  ]
+}

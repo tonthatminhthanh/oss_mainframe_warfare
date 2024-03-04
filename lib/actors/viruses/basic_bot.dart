@@ -2,7 +2,9 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/src/sprite_animation.dart';
 import 'package:mw_project/actors/placeable_entity.dart';
+import 'package:mw_project/constants/team.dart';
 import 'package:mw_project/constants/basic_virus_enum.dart';
+import 'package:mw_project/constants/default_config.dart';
 
 class BasicBot extends PlaceableEntity
 {
@@ -14,10 +16,10 @@ class BasicBot extends PlaceableEntity
   late SpriteAnimation _runningAnimation;
   late SpriteAnimation _attackingAnimation;
 
-  BasicBot({ int damage = 50, double stepTime = 0.075,
-    double hitCooldown = 0.05, double moveSpeed = 95,
-    required super.myTeam, String characterName = "basic_bot",
-    required super.hp, required super.rechargeTime}) : super(characterName: characterName)
+  BasicBot({ int damage = BASIC_VIRUS_DAMAGE, double stepTime = 0.075,
+    double hitCooldown = BASIC_BOT_HIT_COOLDOWN, double moveSpeed = BASIC_BOT_SPEED,
+    super.myTeam = Team.attacker, String characterName = "basic_bot",
+     super.hp = BASIC_BOT_HEALTH, super.rechargeTime = 0}) : super(characterName: characterName)
   {
     _damage = damage;
     _moveSpeed = moveSpeed;
@@ -28,10 +30,13 @@ class BasicBot extends PlaceableEntity
   @override
   void onLoad()
   {
-    debugMode = true;
     setHitbox(RectangleHitbox(position: Vector2(16, 10) ,size: Vector2(32, 32)));
     addHitbox();
     setFlip(true);
+    if(getFlipState())
+    {
+      flipHorizontallyAroundCenter();
+    }
     super.onLoad();
   }
 
@@ -48,13 +53,8 @@ class BasicBot extends PlaceableEntity
   @override
   void loadAllAnimation() {
     // TODO: implement loadAllAnimation
-    if(getFlipState())
-      {
-        flipHorizontallyAroundCenter();
-      }
-
-    _runningAnimation = loadAnimation("run", 11, _stepTime, true);
-    _attackingAnimation = loadAnimation("attack", 9, _hitCooldown, true);
+    _runningAnimation = loadAnimation("running", 11, _stepTime, true);
+    _attackingAnimation = loadAnimation("attacking", 9, _hitCooldown, true);
 
     animations = {
       VirusState.running: _runningAnimation,
@@ -78,7 +78,6 @@ class BasicBot extends PlaceableEntity
           if(victimHp - _damage <= 0)
           {
             current = VirusState.running;
-            print(victim);
           }
         }
     };

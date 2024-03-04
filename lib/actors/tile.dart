@@ -6,7 +6,7 @@ import 'package:mw_project/actors/directors/match_director.dart';
 import 'package:mw_project/actors/placeable_entity.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 
-import '../components/team.dart';
+import '../constants/team.dart';
 
 abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<MainframeWarfare>
 {
@@ -53,6 +53,7 @@ abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<Ma
         else
           {
             entity.setPosition(Vector2(position.x, position.y));
+            print(Vector2(position.x, position.y));
           }
       }
   }

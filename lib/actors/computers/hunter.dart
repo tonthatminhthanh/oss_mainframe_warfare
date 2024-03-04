@@ -5,7 +5,8 @@ import '../projectiles/bullet.dart';
 
 class Hunter extends Rifleman
 {
-  Hunter({required super.myTeam, String name = "hunter"}) : super(characterName: name);
+  Hunter({super.myTeam, String name = "hunter"})
+      : super(characterName: name, hp: 200);
 
   static const int DEFAULT_BULLET_COUNT = 2;
   int _bullets = DEFAULT_BULLET_COUNT;

@@ -38,6 +38,12 @@ dependencies:
   flame: ^1.14.0
   flame_tiled: ^1.18.3
   flame_audio: ^2.1.7
+  firebase_core: ^2.24.2
+  cloud_firestore: ^4.14.0
+  firebase_storage: ^11.6.6
+  firebase_auth: ^4.17.5
+  google_sign_in: ^6.2.1
+  http: ^1.2.0
 
 dev_dependencies:
   flutter_test:
@@ -64,12 +70,23 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/tiles/
+    - assets/images/
+    - assets/images/hud/
+    - assets/images/hud/item_frames/
     - assets/images/sprites/currencies/
     - assets/images/sprites/computers/
     - assets/images/sprites/computers/power_supply/
     - assets/images/sprites/computers/rifleman/
+    - assets/images/sprites/computers/hunter/
+    - assets/images/sprites/computers/claymore/
+    - assets/images/sprites/computers/dynamite/
+    - assets/images/sprites/computers/test_dummy/
+    - assets/images/particles/
     - assets/images/sprites/viruses/
     - assets/images/sprites/viruses/basic_bot/
+    - assets/images/sprites/viruses/speed_bot/
+    - assets/images/sprites/viruses/armored_bot/
+    - assets/images/sprites/viruses/light_armored_bot/
     - assets/images/sprites/projectiles/
     - assets/images/level/
 

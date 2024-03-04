@@ -1,7 +1,7 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:mw_project/actors/projectile.dart';
-import 'package:mw_project/components/team.dart';
+import 'package:mw_project/constants/team.dart';
 import 'package:mw_project/constants/default_config.dart';
 
 class Bullet extends Projectile
@@ -18,9 +18,8 @@ class Bullet extends Projectile
   @override
   void onLoad()
   {
-    setHitbox(RectangleHitbox(size: Vector2.all(8)));
+    setHitbox(RectangleHitbox(size: Vector2.all(16)));
     addHitbox();
-    debugMode = true;
     super.onLoad();
   }
 

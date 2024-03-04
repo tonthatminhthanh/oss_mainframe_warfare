@@ -4,7 +4,7 @@ import 'package:flame/geometry.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mw_project/actors/placeable_entity.dart';
 import 'package:mw_project/actors/projectiles/bullet.dart';
-import 'package:mw_project/components/team.dart';
+import 'package:mw_project/constants/team.dart';
 import 'package:mw_project/constants/default_config.dart';
 
 enum RiflemanState {
@@ -24,12 +24,12 @@ class Rifleman extends PlaceableEntity
   bool _canFire = false;
   bool _hasBullet = true;
 
-  double _stepTime = 0.075;
+  double _stepTime = 0.0575;
 
-  Rifleman({required Team myTeam, String characterName = "rifleman",
+  Rifleman({Team myTeam = Team.defender, String characterName = "rifleman",
     int hp = DEFAULT_COMPUTER_HP,
-    double rechargeTime = FAST_RECHARGE}) : super(characterName: characterName,
-    hp: hp, myTeam: myTeam, rechargeTime: rechargeTime)
+    double rechargeTime = FAST_RECHARGE, int cost = 100}) : super(characterName: characterName,
+    hp: hp, myTeam: myTeam, rechargeTime: rechargeTime, cost: cost)
   {
 
   }
@@ -39,7 +39,6 @@ class Rifleman extends PlaceableEntity
   {
     setHitbox(RectangleHitbox(position: Vector2(16, 0) ,size: Vector2(32, 64)));
     addHitbox();
-    debugMode = true;
     super.onLoad();
   }
 

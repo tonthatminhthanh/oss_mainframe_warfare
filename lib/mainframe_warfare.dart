@@ -9,15 +9,16 @@ import 'package:flame/image_composition.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mw_project/actors/computers/power_supply.dart';
 import 'package:mw_project/actors/directors/match_director.dart';
-import 'package:mw_project/components/team.dart';
+import 'package:mw_project/constants/default_config.dart';
+import 'package:mw_project/constants/team.dart';
 import 'package:mw_project/levels/level.dart';
 
 import 'actors/placeable_entity.dart';
 
 class MainframeWarfare extends FlameGame with HasCollisionDetection
 {
-  double screenWidth = 1280;
-  double screenHeight = 768;
+  double screenWidth = SCREEN_WIDTH as double;
+  double screenHeight = SCREEN_HEIGHT as double;
   late CameraComponent cam;
   late MatchDirector _director;
   
@@ -67,9 +68,12 @@ class MainframeWarfare extends FlameGame with HasCollisionDetection
         height: screenHeight
     );
     cam.viewfinder.anchor = Anchor.topLeft;
-
     addAll([cam, world, _director]);
-
     return super.onLoad();
+  }
+
+  Level getLevel()
+  {
+    return world as Level;
   }
 }

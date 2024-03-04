@@ -13,7 +13,6 @@ class FixedTile extends MyTile
 
   @override
   FutureOr<void> onLoad() {
-    debugMode = true;
     super.onLoad();
   }
 

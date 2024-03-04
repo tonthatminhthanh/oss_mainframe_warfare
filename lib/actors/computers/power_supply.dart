@@ -7,7 +7,7 @@ import 'package:mw_project/actors/currencies/ion.dart';
 import 'package:mw_project/actors/placeable_entity.dart';
 import 'package:mw_project/constants/default_config.dart';
 
-import '../../components/team.dart';
+import '../../constants/team.dart';
 
 enum PowerSupplyState {
   idle,
@@ -19,7 +19,7 @@ class PowerSupply extends PlaceableEntity
   @override
   // TODO: implement debugMode
   bool get debugMode => super.debugMode;
-  final int productionInterval = 20;
+  late int productionInterval = 20;
   double elapsedSecs = 0;
   late Timer interval;
   late SpriteAnimation _idleAnimation;
@@ -27,8 +27,9 @@ class PowerSupply extends PlaceableEntity
   double stepTime = 0.075;
 
   PowerSupply({ String characterName = "power_supply",
-    required Team myTeam, int hp = DEFAULT_COMPUTER_HP, double rechargeTime = FAST_RECHARGE})
-  : super(myTeam: myTeam, hp: hp, rechargeTime: rechargeTime, characterName: characterName)
+     Team myTeam = Team.defender, int hp = DEFAULT_COMPUTER_HP, double rechargeTime = FAST_RECHARGE, })
+  : super(myTeam: myTeam, hp: hp, rechargeTime: rechargeTime, characterName: characterName
+      , cost: 100)
   {
     interval
     = Timer(1, repeat: true, onTick: () => elapsedSecs += 1,);
@@ -37,11 +38,11 @@ class PowerSupply extends PlaceableEntity
   @override
   FutureOr<void> onLoad()
   {
+    productionInterval = Random().nextInt(productionInterval) + 15;
     setHitbox(RectangleHitbox(position: Vector2(16, 0) ,size: Vector2(32, 64)));
     addHitbox();
     interval.reset();
     interval.start();
-    debugMode = true;
     super.onLoad();
   }
 
@@ -96,6 +97,4 @@ class PowerSupply extends PlaceableEntity
         };
       }
   }
-
-
 }

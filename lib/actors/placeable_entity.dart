@@ -1,8 +1,9 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:mw_project/actors/tile.dart';
+import 'package:mw_project/constants/default_config.dart';
 
-import '../components/team.dart';
+import '../constants/team.dart';
 import 'entity.dart';
 
 abstract class PlaceableEntity extends Entity with CollisionCallbacks
@@ -15,13 +16,14 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks
   late String _characterName;
   bool _isFlipped = false;
   bool _canAttack = true;
+  int _cost;
   MyTile? _tile;
 
   PlaceableEntity({required Team myTeam, required String characterName,
-    required int hp, required double rechargeTime})
+    required int hp, required double rechargeTime, double scaleValue = 2.0, int cost = 0}) : _cost = cost
   {
     _characterName = characterName;
-    scale = Vector2(2, 2);
+    scale = Vector2(scaleValue, scaleValue);
     _myTeam = myTeam;
     _hp = hp;
     _rechargeTime = rechargeTime;
@@ -32,7 +34,13 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks
   {
     entityMovement(dt);
     checkHealth();
+    selfDestruct();
     super.update(dt);
+  }
+
+  void setHealth(int health)
+  {
+    _hp = health;
   }
 
   @override
@@ -42,8 +50,22 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks
       {
         print("Removing...");
         removeFromTile();
+        if(getTeam() == Team.attacker)
+          {
+            game.getLevel().reduceAttackersCount();
+          }
         removeFromParent();
       }
+  }
+
+  @override
+  void onLoad()
+  {
+    if(getTeam() == Team.attacker)
+      {
+        game.getLevel().addToAttackersCount();
+      }
+    super.onLoad();
   }
 
   @override
@@ -99,6 +121,7 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks
     _rechargeTime = rechargeTime;
   }
 
+
   double getRechargeTime()
   {
     return _rechargeTime;
@@ -112,6 +135,14 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks
   int getHp()
   {
     return _hp;
+  }
+
+  void selfDestruct()
+  {
+    if(position.x <= - TILE_SIZE)
+    {
+      removeFromParent();
+    }
   }
 
   double getSpeedModifier()

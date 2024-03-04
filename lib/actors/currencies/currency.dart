@@ -5,7 +5,7 @@ import 'package:flame/events.dart';
 import 'package:mw_project/constants/default_config.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 
-import '../../components/team.dart';
+import '../../constants/team.dart';
 
 class Currency extends SpriteComponent with TapCallbacks, HasGameRef<MainframeWarfare>
 {

@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:mw_project/actors/placeable_entity.dart';
+import 'package:mw_project/constants/default_config.dart';
 
-import '../components/team.dart';
+import '../constants/team.dart';
 import '../mainframe_warfare.dart';
 
 abstract class Projectile extends SpriteComponent with CollisionCallbacks, HasGameRef<MainframeWarfare>
@@ -48,15 +49,22 @@ abstract class Projectile extends SpriteComponent with CollisionCallbacks, HasGa
     super.onCollision(intersectionPoints, other);
   }
 
-
   @override
   void update(double dt) {
     movement(dt);
+    selfDestruct();
     super.update(dt);
   }
 
   void movement(double dt);
 
+  void selfDestruct()
+  {
+    if(position.x >= SCREEN_WIDTH + TILE_SIZE)
+      {
+        removeFromParent();
+      }
+  }
   void loadAnimation()
   {
     sprite = Sprite(game.images.fromCache("sprites/projectiles/$_name.png"));
