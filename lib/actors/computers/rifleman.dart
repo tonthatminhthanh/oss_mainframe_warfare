@@ -35,6 +35,12 @@ class Rifleman extends PlaceableEntity
   }
 
   @override
+  PlaceableEntity clone() {
+    // TODO: implement clone
+    return Rifleman();
+  }
+
+  @override
   void onLoad()
   {
     setHitbox(RectangleHitbox(position: Vector2(16, 0) ,size: Vector2(32, 64)));

@@ -13,9 +13,15 @@ class Claymore extends PlaceableEntity
     super.myTeam = Team.defender,
     super.characterName = "claymore",
     super.hp = DEFAULT_COMPUTER_HP,
-    super.rechargeTime = 0,
-    super.cost = 75
+    super.rechargeTime = SLOW_RECHARGE,
+    super.cost = 50
       });
+
+  @override
+  PlaceableEntity clone() {
+    // TODO: implement clone
+    return Claymore();
+  }
 
   @override
   void onLoad()

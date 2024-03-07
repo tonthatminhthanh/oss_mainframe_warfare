@@ -15,9 +15,15 @@ class TestDummy extends PlaceableEntity
   late SpriteAnimation _damagedAnimation;
   late SpriteAnimation _nearDeathAnimation;
 
-  TestDummy({Team myTeam = Team.defender, double rechargeTime = 0})
+  TestDummy({Team myTeam = Team.defender, double rechargeTime = SLOW_RECHARGE})
       : super(characterName: "test_dummy",
       hp: TEST_DUMMY_HP, myTeam: myTeam, rechargeTime: rechargeTime, cost: 50);
+
+  @override
+  PlaceableEntity clone() {
+    // TODO: implement clone
+    return TestDummy();
+  }
 
   @override
   void entityMovement(double dt) {

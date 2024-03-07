@@ -94,4 +94,9 @@ class BasicBot extends PlaceableEntity
     }
     super.onCollision(intersectionPoints, other);
   }
+
+  @override
+  PlaceableEntity clone() {
+    return BasicBot();
+  }
 }

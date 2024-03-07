@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mw_project/mainframe_warfare.dart';
+import 'package:mw_project/ui/widget_overlay/defenders_selection.dart';
+import 'package:mw_project/ui/widget_overlay/pause_button.dart';
+import 'package:mw_project/ui/widget_overlay/pause_menu.dart';
 
 import '../login_page.dart';
 
@@ -26,7 +27,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
           children: [
             Text("Welcome back,"
                 " ${FirebaseAuth.instance.currentUser!.displayName}"
-              , style: TextStyle(fontSize: 32),),
+              , style: TextStyle(fontSize: 32, fontFamily: "Silver"),),
             Expanded(
               child: Image.network(FirebaseAuth.instance.currentUser!.photoURL!
                 , width: 150, height: 150,),
@@ -35,13 +36,24 @@ class _MainMenuPageState extends State<MainMenuPage> {
                 onPressed: () {
                   MainframeWarfare game = MainframeWarfare();
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder:
-                          (context) => GameWidget(game: kDebugMode ? MainframeWarfare() : game),
+                      MaterialPageRoute(
+                        builder: (context) => GameWidget(
+                              game: kDebugMode ? MainframeWarfare() : game,
+                              initialActiveOverlays: [
+                                PauseButton.ID
+                              ],
+                              overlayBuilderMap: {
+                                DefenderSelection.ID: (BuildContext context, MainframeWarfare gameRef) => DefenderSelection(gameRef: gameRef,),
+                                PauseButton.ID: (BuildContext context, MainframeWarfare gameRef) => PauseButton(gameRef: gameRef,),
+                                PauseMenu.ID: (BuildContext context, MainframeWarfare gameRef) => PauseMenu(gameRef: gameRef,),
+                              },
+                          ),
                       )
                   );
                 },
-                child: Text("Play!")
+                child: Text("Play!", style: TextStyle(fontFamily: "Silver"),)
             ),
+            Text("Developed by Tôn Thất Minh Thành. Font made by Poppy Works.", style: TextStyle(fontFamily: "Silver"),),
             Align(child: Container(
               child: IconButton(
                 icon: Icon(Icons.exit_to_app),

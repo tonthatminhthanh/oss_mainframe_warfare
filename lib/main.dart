@@ -21,6 +21,10 @@ class _MainframeWarfareAppState extends State<MainframeWarfareApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark(),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        fontFamily: 'Silver'
+      ),
       home: Scaffold(
         body: FirebaseConnectionPage(builder: (context) => LoginPage(),),
       ),

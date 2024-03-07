@@ -42,8 +42,14 @@ abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<Ma
       {
         if(entity.getTeam() == Team.defender)
           {
+            var director = game.getDirector();
             _occupant = entity;
             _occupant!.setTile(this);
+            director.emptySelection();
+            if(!director.isStartingUp())
+              {
+                director.decreaseMoney(_occupant!.getPrice());
+              }
           }
         gameRef.world.add(entity);
         if(entity.getFlipState())
@@ -65,7 +71,6 @@ abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<Ma
     if(entity != null)
       {
         setOccupant(entity);
-        director.emptySelection();
       }
     super.onTapDown(event);
   }

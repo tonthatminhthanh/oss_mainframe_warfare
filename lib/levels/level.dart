@@ -8,7 +8,7 @@ import 'package:mw_project/actors/fixed_tile.dart';
 import 'package:mw_project/actors/tile.dart';
 import 'package:mw_project/constants/team.dart';
 import 'package:mw_project/mainframe_warfare.dart';
-import 'package:mw_project/ui/hud.dart';
+import 'package:mw_project/ui/hud/money_display.dart';
 
 import '../actors/placeable_entity.dart';
 
@@ -29,7 +29,7 @@ class Level extends World with HasGameRef<MainframeWarfare>
   FutureOr<void> onLoad() async {
     _level = await TiledComponent.load("$_levelName.tmx", Vector2.all(64));
     add(_level);
-    add(Hud());
+    add(MoneyDisplay());
     _spawnObject();
     return super.onLoad();
   }

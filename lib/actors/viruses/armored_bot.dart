@@ -1,3 +1,4 @@
+import 'package:mw_project/actors/placeable_entity.dart';
 import 'package:mw_project/actors/viruses/basic_bot.dart';
 
 import '../../constants/team.dart';
@@ -12,4 +13,10 @@ class ArmoredBot extends BasicBot
     hitCooldown: BASIC_BOT_HIT_COOLDOWN,
     moveSpeed: BASIC_BOT_SPEED,
   );
+
+  @override
+  PlaceableEntity clone() {
+    // TODO: implement clone
+    return ArmoredBot();
+  }
 }

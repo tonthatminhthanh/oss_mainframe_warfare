@@ -11,9 +11,15 @@ class Dynamite extends PlaceableEntity
   late SpriteAnimation _idleAnimation;
   late Timer _explodeTimer;
 
-  Dynamite({Team myTeam = Team.defender, double rechargeTime = 0})
+  Dynamite({Team myTeam = Team.defender, double rechargeTime = VERY_SLOW_RECHARGE})
       : super(characterName: "dynamite",
       hp: TEST_DUMMY_HP, myTeam: myTeam, rechargeTime: rechargeTime, cost: 175);
+
+  @override
+  PlaceableEntity clone() {
+    // TODO: implement clone
+    return Dynamite();
+  }
 
   @override
   void onLoad()

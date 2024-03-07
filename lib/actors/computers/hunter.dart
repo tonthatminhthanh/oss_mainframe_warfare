@@ -1,12 +1,19 @@
 import 'package:flame/components.dart';
 import 'package:mw_project/actors/computers/rifleman.dart';
 
+import '../placeable_entity.dart';
 import '../projectiles/bullet.dart';
 
 class Hunter extends Rifleman
 {
   Hunter({super.myTeam, String name = "hunter"})
-      : super(characterName: name, hp: 200);
+      : super(characterName: name, hp: 200, cost: 200);
+
+  @override
+  PlaceableEntity clone() {
+    // TODO: implement clone
+    return Hunter();
+  }
 
   static const int DEFAULT_BULLET_COUNT = 2;
   int _bullets = DEFAULT_BULLET_COUNT;

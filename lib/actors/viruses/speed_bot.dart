@@ -15,6 +15,12 @@ class SpeedBot extends BasicBot
   );
 
   @override
+  PlaceableEntity clone() {
+    // TODO: implement clone
+    return SpeedBot();
+  }
+
+  @override
   void attack(PlaceableEntity victim)
   {
 

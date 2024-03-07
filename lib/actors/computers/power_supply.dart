@@ -19,7 +19,7 @@ class PowerSupply extends PlaceableEntity
   @override
   // TODO: implement debugMode
   bool get debugMode => super.debugMode;
-  late int productionInterval = 20;
+  late int productionInterval = 15;
   double elapsedSecs = 0;
   late Timer interval;
   late SpriteAnimation _idleAnimation;
@@ -33,6 +33,12 @@ class PowerSupply extends PlaceableEntity
   {
     interval
     = Timer(1, repeat: true, onTick: () => elapsedSecs += 1,);
+  }
+
+  @override
+  PlaceableEntity clone() {
+    // TODO: implement clone
+    return PowerSupply();
   }
 
   @override

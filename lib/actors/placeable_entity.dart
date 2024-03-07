@@ -1,12 +1,13 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:mw_project/actors/tile.dart';
 import 'package:mw_project/constants/default_config.dart';
 
 import '../constants/team.dart';
 import 'entity.dart';
 
-abstract class PlaceableEntity extends Entity with CollisionCallbacks
+abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallbacks
 {
   RectangleHitbox? _rectHitbox;
   late Team _myTeam;
@@ -27,6 +28,17 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks
     _myTeam = myTeam;
     _hp = hp;
     _rechargeTime = rechargeTime;
+  }
+
+
+  @override
+  void onLongTapDown(TapDownEvent event) {
+    if(getTeam() == Team.defender)
+      {
+        removeFromTile();
+        removeFromParent();
+      }
+    super.onLongTapDown(event);
   }
 
   @override
@@ -111,6 +123,8 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks
     }
   }
 
+  PlaceableEntity clone();
+
   void swap(Team otherTeam)
   {
     _myTeam = otherTeam;
@@ -158,6 +172,16 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks
   Team getTeam()
   {
     return _myTeam;
+  }
+
+  String getName()
+  {
+    return _characterName;
+  }
+
+  int getPrice()
+  {
+    return _cost;
   }
 
   void setFlip(bool value)
