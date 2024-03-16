@@ -26,7 +26,7 @@ const int BASIC_VIRUS_DAMAGE = 50;
 const int SPEED_BOT_HEALTH = 300;
 const int LIGHT_ARMORED_BOT_HEALTH = 600;
 const int ARMORED_BOT_HEALTH = 1300;
-const double SPEED_BOT_SPEED = 200;
-const double SPEED_BOT_HIT_COOLDOWN = 0.025;
+const double SPEED_BOT_SPEED = 125;
+const double SPEED_BOT_HIT_COOLDOWN = 0.015;
 //TRAY CONFIG
 const int MAX_DEFENDERS_COUNT = 4;

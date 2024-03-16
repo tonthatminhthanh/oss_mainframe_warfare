@@ -30,7 +30,7 @@ class WaveManager
         attackerScores[i] += currentMainWave;
       }
     print(attackerScores);
-    xCoords = List.filled(GENERAL_HEIGHT, SCREEN_WIDTH + 128);
+    xCoords = List.filled(Random().nextInt(135) + GENERAL_HEIGHT, SCREEN_WIDTH + 128);
   }
 
   List<PlaceableEntity> getEntitiesForWave(int currentWave)
