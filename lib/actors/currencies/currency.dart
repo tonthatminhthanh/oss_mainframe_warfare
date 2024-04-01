@@ -1,11 +1,14 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:mw_project/constants/default_config.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 
 import '../../constants/team.dart';
+import '../../objects/audio_manager.dart';
 
 class Currency extends SpriteComponent with TapCallbacks, HasGameRef<MainframeWarfare>
 {
@@ -68,6 +71,7 @@ class Currency extends SpriteComponent with TapCallbacks, HasGameRef<MainframeWa
 
   @override
   void onTapDown(TapDownEvent event) {
+    FlameAudio.play("sfx/pickup_${Random().nextInt(4) + 1}.wav", volume: AudioManager.getSfxVolune());
     gameRef.getDirector().addMoney(this, _value);
     removeFromParent();
     super.onTapDown(event);

@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
+import 'dart:ffi';
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flame/components.dart';
-import 'package:flame/geometry.dart';
 import 'package:flame/timer.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 import 'package:mw_project/actors/computers/claymore.dart';
 import 'package:mw_project/actors/computers/dynamite.dart';
 import 'package:mw_project/actors/computers/hunter.dart';
@@ -17,21 +18,19 @@ import 'package:mw_project/actors/computers/test_dummy.dart';
 import 'package:mw_project/actors/currencies/currency.dart';
 import 'package:mw_project/actors/directors/wave_manager.dart';
 import 'package:mw_project/actors/placeable_entity.dart';
-import 'package:mw_project/actors/viruses/armored_bot.dart';
-import 'package:mw_project/actors/viruses/basic_bot.dart';
-import 'package:mw_project/actors/viruses/light_armored_bot.dart';
-import 'package:mw_project/actors/viruses/speed_bot.dart';
 import 'package:mw_project/constants/computers_items.dart';
 import 'package:mw_project/constants/default_config.dart';
+import 'package:mw_project/firebase/firebase_user_score.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 import 'package:mw_project/ui/widget_overlay/defenders_selection.dart';
-import 'package:mw_project/utilities/save_file.dart';
+import 'package:mw_project/objects/save_file.dart';
+import 'package:mw_project/ui/widget_overlay/game_over.dart';
+import 'package:mw_project/ui/widget_overlay/loading_screen.dart';
 
 import '../../constants/team.dart';
+import '../../objects/audio_manager.dart';
 import '../../ui/hud/defenders_list.dart';
 import '../tile.dart';
-
-const String test_save_path = "https://firebasestorage.googleapis.com/v0/b/mainframe-warfare.appspot.com/o/test_save%2Fsave.json?alt=media&token=ed58c89f-1023-4fc7-ad62-454f26ee7d11";
 
 class MatchDirector extends Component with HasGameRef<MainframeWarfare>
 {
@@ -39,7 +38,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
   int _currentMainWave = 0;
   int _currentWave = 0;
   PlaceableEntity? _currentlySelected;
-  Timer _selfProductionTimer = Timer(Random().nextInt(45) + 25, repeat: false);
+  Timer _selfProductionTimer = Timer(Random().nextInt(8) + 5, repeat: false);
   late ValueNotifier<int> _defenderMoney;
   late List<MyTile> _tilesRef;
   Timer? _spawnInterval;
@@ -63,12 +62,10 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
       case Team.attacker:
         // none for now
     }
-    print("Defender: ${_defenderMoney.value}");
   }
 
-  void gameOver()
-  {
-
+  void gameOver() {
+    game.overlays.add(GameOverMenu.ID);
   }
 
   bool isStartingUp()
@@ -106,10 +103,10 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
       }
     }
   }
-  
+
   void emptySelection()
   {
-    if(!_selectedDefenderItems.isEmpty)
+    if(!_selectedDefenderItems.isEmpty && _currentlySelected != null)
       {
         DefenderGameItem item = _selectedDefenderItems.firstWhere((element) => element.entity.runtimeType == _currentlySelected.runtimeType);
         item.deselect();
@@ -125,16 +122,30 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     super.onLoad();
   }
 
+  void resetMatch()
+  {
+    print("Resetting match");
+    _currentMainWave = 0;
+    _currentWave = 0;
+  }
+
   void loadMatch() async
   {
-    Map<String, dynamic> saveData = await _grabSave();
-    save = SaveFile.fromJson(saveData);
-    _defenderMoney.value = save!.defenderMoney;
-    _currentMainWave = save!.currentWave;
-    _tilesRef = game.getLevel().getTilesList();
-    _loadSaveToMap();
-    print(_selectedDefenderItems);
+    if(!gameRef.overlays.isActive(LoadingScreen.ID));
+    {
+      gameRef.overlays.add(LoadingScreen.ID);
+    }
+    Map<String, dynamic>? saveData = await _grabSave();
+    if(saveData != null)
+      {
+        save = SaveFile.fromJson(saveData);
+        _defenderMoney.value = save!.defenderMoney;
+        _currentMainWave = save!.currentWave;
+        _tilesRef = game.getLevel().getTilesList();
+        _loadSaveToMap();
+      }
     callNewWave();
+    gameRef.overlays.remove(LoadingScreen.ID);
     gameRef.overlays.add(DefenderSelection.ID);
   }
 
@@ -159,10 +170,9 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     _currentWave++;
     if(_currentWave < defaultAttackerScores.length)
     {
-      print("Current wave: $_currentWave");
+      print("Current wave: $_currentWave, main wave: $_currentMainWave");
       WaveManager waveManager = WaveManager(currentMainWave: _currentMainWave);
       _temporaryAttackers = waveManager.getEntitiesForWave(_currentWave);
-      print("Spawn $_temporaryAttackers in wave: $_currentWave");
       if(_currentWave == 1 && _currentMainWave == 0)
         {
           _spawnInterval = Timer(8, repeat: false);
@@ -172,6 +182,18 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
           _spawnInterval = Timer(Random().nextDouble() * 4 + 1, repeat: false);
         }
     }
+    else
+      {
+        AudioManager.stopAllSfx();
+        _currentWave = 0;
+        print("Increased wave!");
+        _currentMainWave += 2;
+        _isStartingUp = true;
+        gameRef.pauseEngine();
+        UserScoreSnapshot.updateWave(_currentMainWave);
+        var json = jsonEncode(_createSave().toJson());
+        _uploadSaveToFirebase(json);
+      }
   }
 
   @override
@@ -189,18 +211,27 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     if(_selfProductionTimer.finished)
       {
         _defenderMoney.value += DEFAULT_COMPUTER_EARNING;
-        _selfProductionTimer = Timer(Random().nextInt(45) + 25, repeat: false);
+        _selfProductionTimer = Timer(Random().nextInt(15) + 10, repeat: false);
       }
     super.update(dt);
   }
 
-  Future<Map<String, dynamic>> _grabSave() async
+  Future<Map<String, dynamic>?> _grabSave() async
   {
-    var url = Uri.parse(test_save_path);
-    http.Response response = await http.get(url);
+    final storageRef = FirebaseStorage.instance.ref();
 
-    Map<String, dynamic> data = jsonDecode(response.body);
-
+    String currentId = FirebaseAuth.instance.currentUser!.uid;
+    final pathRef = storageRef.child("saves/${currentId}.json");
+    var dataFromStorage = await pathRef.getData().catchError((e) {
+      print("Save data does not exist!");
+      resetMatch();
+      emptySelection();
+    });
+    Map<String, dynamic>? data;
+    if(dataFromStorage != null)
+      {
+        data = jsonDecode(String.fromCharCodes(dataFromStorage));
+      }
     return data;
   }
 
@@ -241,7 +272,54 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
       
       _tilesRef.firstWhere(
               (e) => (e.x == element["x"] && e.y == element["y"])
-      ).setOccupant(entity);
+      ).overwriteOccupant(entity);
+    });
+  }
+
+  SaveFile _createSave()
+  {
+    var tilesWithEntity = game.getLevel().getTilesList().where(
+            (element) => element.getOccupant() != null).toList();
+    List<Map<String,dynamic>> tiles = [];
+    tilesWithEntity.forEach((element) {
+      tiles.add(
+        {
+          "type": element.getOccupant()!.getName(),
+          "x": element.getOccupant()!.x,
+          "y": element.getOccupant()!.y
+        }
+      );
+    });
+
+    return SaveFile(
+        currentWave: _currentMainWave,
+        defenderMoney: _defenderMoney.value,
+        tiles: tiles
+    );
+  }
+
+  void _uploadSaveToFirebase(String jsonString)
+  {
+    game.overlays.add(LoadingScreen.ID);
+    FirebaseStorage storage = FirebaseStorage.instance;
+
+    String currentId = FirebaseAuth.instance.currentUser!.uid;
+    Reference storageReference = storage.ref().child("saves/${currentId}.json");
+
+    UploadTask uploadTask = storageReference.putData(utf8.encode(jsonString));
+
+    uploadTask.then((p0) {
+      _selectedDefenders.clear();
+      _selectedDefenderItems.clear();
+      loadMatch();
+    }).whenComplete(() {
+
+    }).catchError((e) {
+      print("Error: " + e.toString());
+      if(game.overlays.isActive(LoadingScreen.ID))
+      {
+        game.overlays.remove(LoadingScreen.ID);
+      }
     });
   }
 

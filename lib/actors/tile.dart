@@ -35,9 +35,38 @@ abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<Ma
     return _occupant == null;
   }
 
+  void overwriteOccupant(PlaceableEntity entity)
+  {
+    if(!isNotOccupied())
+      {
+        _occupant!.removeFromTile();
+        _occupant = null;
+      }
+
+    if(entity.getTeam() == Team.defender)
+    {
+      var director = game.getDirector();
+      _occupant = entity;
+      _occupant!.setTile(this);
+      director.emptySelection();
+      if(!director.isStartingUp())
+      {
+        director.decreaseMoney(_occupant!.getPrice());
+      }
+    }
+    gameRef.world.add(entity);
+    if(entity.getFlipState())
+    {
+      entity.setPosition(Vector2(position.x + 128, position.y));
+    }
+    else
+    {
+      entity.setPosition(Vector2(position.x, position.y));
+    }
+  }
+
   void setOccupant(PlaceableEntity entity)
   {
-    print("Status: ${getStatus()}, is not occupied: ${isNotOccupied()}");
     if(canPlaceOn())
       {
         if(entity.getTeam() == Team.defender)
@@ -59,9 +88,13 @@ abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<Ma
         else
           {
             entity.setPosition(Vector2(position.x, position.y));
-            print(Vector2(position.x, position.y));
           }
       }
+  }
+
+  PlaceableEntity? getOccupant()
+  {
+    return _occupant;
   }
 
   @override
@@ -72,6 +105,7 @@ abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<Ma
       {
         setOccupant(entity);
       }
+    event.continuePropagation = false;
     super.onTapDown(event);
   }
 

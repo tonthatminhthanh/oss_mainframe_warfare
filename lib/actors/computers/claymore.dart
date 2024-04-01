@@ -27,7 +27,6 @@ class Claymore extends PlaceableEntity
   void onLoad()
   {
     loadAllAnimation();
-    debugMode = true;
     setPosition(Vector2(position.x + 64, position.y + 64));
     print(position);
     setHitbox(RectangleHitbox(position: Vector2(0,0), size: Vector2.all(64)));

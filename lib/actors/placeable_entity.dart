@@ -1,10 +1,15 @@
+import 'dart:math';
+
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:mw_project/actors/tile.dart';
 import 'package:mw_project/constants/default_config.dart';
+import 'package:mw_project/firebase/firebase_user_score.dart';
 
 import '../constants/team.dart';
+import '../objects/audio_manager.dart';
 import 'entity.dart';
 
 abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallbacks
@@ -36,9 +41,16 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
     if(getTeam() == Team.defender)
       {
         removeFromTile();
-        removeFromParent();
       }
+    event.continuePropagation = true;
     super.onLongTapDown(event);
+  }
+
+
+  @override
+  void onTapDown(TapDownEvent event) {
+    event.continuePropagation = true;
+    super.onTapDown(event);
   }
 
   @override
@@ -60,11 +72,13 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
   {
     if(_hp <= 0)
       {
-        print("Removing...");
         removeFromTile();
         if(getTeam() == Team.attacker)
           {
             game.getLevel().reduceAttackersCount();
+            UserScoreSnapshot.addKill();
+            FlameAudio.play("sfx/death.wav",
+                volume: AudioManager.getSfxVolune() * 0.5);
           }
         removeFromParent();
       }
@@ -75,7 +89,12 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
   {
     if(getTeam() == Team.attacker)
       {
+        priority = 4;
         game.getLevel().addToAttackersCount();
+      }
+    else
+      {
+        priority = 3;
       }
     super.onLoad();
   }
@@ -143,6 +162,14 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
 
   void getAttacked(int damage)
   {
+    if(getTeam() == Team.defender)
+      {
+        AudioManager.playMeleeSound();
+      }
+    else
+      {
+        AudioManager.playHitSound(getName());
+      }
     _hp -= damage;
   }
 
@@ -151,10 +178,15 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
     return _hp;
   }
 
-  void selfDestruct()
-  {
-    if(position.x <= - TILE_SIZE)
+  Future<void> selfDestruct()
+  async {
+    if(position.x <= -64)
     {
+      if(getTeam() == Team.attacker)
+        {
+          print("Game over!");
+          game.getDirector().gameOver();
+        }
       removeFromParent();
     }
   }
@@ -205,5 +237,6 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
       {
         _tile!.removeOccupant();
       }
+    removeFromParent();
   }
 }

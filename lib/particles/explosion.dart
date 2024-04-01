@@ -1,13 +1,16 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:mw_project/constants/team.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 
 import '../actors/placeable_entity.dart';
 import '../constants/default_config.dart';
+import '../objects/audio_manager.dart';
 
 enum ExplosionSize {
   small, big
@@ -55,6 +58,7 @@ class Explosion extends SpriteAnimationComponent with HasGameRef<MainframeWarfar
     _hitbox = CircleHitbox(position: Vector2.all(64), radius: _radius, anchor: Anchor.center);
 
     add(_hitbox!);
+    FlameAudio.play("sfx/explosion_${Random().nextInt(2) + 1}.wav", volume: AudioManager.getSfxVolune());
     animationTicker!.onComplete = () {
       removeFromParent();
     };

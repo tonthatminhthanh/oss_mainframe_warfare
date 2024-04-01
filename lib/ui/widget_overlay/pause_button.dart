@@ -1,3 +1,4 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 import 'package:mw_project/ui/widget_overlay/pause_menu.dart';
@@ -15,6 +16,7 @@ class PauseButton extends StatelessWidget {
         icon: Icon(Icons.pause, color: Colors.white,),
         onPressed: () {
           gameRef.pauseEngine();
+          FlameAudio.bgm.pause();
           gameRef.overlays.add(PauseMenu.ID);
         },
       ),

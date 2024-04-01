@@ -1,11 +1,14 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/geometry.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mw_project/actors/placeable_entity.dart';
 import 'package:mw_project/actors/projectiles/bullet.dart';
 import 'package:mw_project/constants/team.dart';
 import 'package:mw_project/constants/default_config.dart';
+
+import '../../objects/audio_manager.dart';
 
 enum RiflemanState {
   shooting, aiming, reloading
@@ -98,6 +101,7 @@ class Rifleman extends PlaceableEntity
         animationTicker!.onFrame = (currentIndex) {
           if(currentIndex == 0)
             {
+              AudioManager.playRifleSfx();
               final spawnPos = Vector2(this.position.x + 128,
                   this.position.y + 64);
               game.world.add(Bullet(startingPosition: spawnPos));

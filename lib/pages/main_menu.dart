@@ -1,10 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flame/game.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 import 'package:mw_project/ui/widget_overlay/defenders_selection.dart';
+import 'package:mw_project/ui/widget_overlay/game_over.dart';
+import 'package:mw_project/ui/widget_overlay/loading_screen.dart';
 import 'package:mw_project/ui/widget_overlay/pause_button.dart';
 import 'package:mw_project/ui/widget_overlay/pause_menu.dart';
 
@@ -35,6 +38,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
             ElevatedButton(
                 onPressed: () {
                   MainframeWarfare game = MainframeWarfare();
+                  FlameAudio.bgm.initialize();
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (context) => GameWidget(
@@ -43,9 +47,11 @@ class _MainMenuPageState extends State<MainMenuPage> {
                                 PauseButton.ID
                               ],
                               overlayBuilderMap: {
+                                LoadingScreen.ID: (BuildContext context, MainframeWarfare gameRef) => LoadingScreen(gameRef: gameRef,),
                                 DefenderSelection.ID: (BuildContext context, MainframeWarfare gameRef) => DefenderSelection(gameRef: gameRef,),
                                 PauseButton.ID: (BuildContext context, MainframeWarfare gameRef) => PauseButton(gameRef: gameRef,),
                                 PauseMenu.ID: (BuildContext context, MainframeWarfare gameRef) => PauseMenu(gameRef: gameRef,),
+                                GameOverMenu.ID: (BuildContext context, MainframeWarfare gameRef) => GameOverMenu(gameRef: gameRef,),
                               },
                           ),
                       )
@@ -70,5 +76,10 @@ class _MainMenuPageState extends State<MainMenuPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 }

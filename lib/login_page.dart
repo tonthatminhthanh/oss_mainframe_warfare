@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mw_project/firebase/firebase_user_score.dart';
+import 'package:mw_project/objects/user_score.dart';
 import 'package:mw_project/pages/main_menu.dart';
 import 'package:mw_project/pages/test.dart';
 
@@ -58,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
       idToken: googleAuthentication?.idToken
     );
 
-    await FirebaseAuth.instance.signInWithCredential(userAuthentication)
+    final UserCredential authResult = await FirebaseAuth.instance.signInWithCredential(userAuthentication)
         .catchError((e) {
           setState(() {
             _errorMsg = e.toString();
@@ -68,6 +70,16 @@ class _LoginPageState extends State<LoginPage> {
 
     if(_loggingIn)
     {
+      if(authResult.additionalUserInfo!.isNewUser)
+      {
+        UserScoreSnapshot.addUserScores(
+          UserScore(
+              kills: 0,
+              maxWave: 0
+          )
+        );
+      }
+
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => MainMenuPage(),)
       );

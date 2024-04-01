@@ -1,6 +1,8 @@
 import 'package:flame/components.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:mw_project/actors/computers/rifleman.dart';
 
+import '../../objects/audio_manager.dart';
 import '../placeable_entity.dart';
 import '../projectiles/bullet.dart';
 
@@ -11,7 +13,6 @@ class Hunter extends Rifleman
 
   @override
   PlaceableEntity clone() {
-    // TODO: implement clone
     return Hunter();
   }
 
@@ -27,6 +28,7 @@ class Hunter extends Rifleman
       animationTicker!.onFrame = (currentIndex) {
         if(currentIndex == 0)
         {
+          AudioManager.playShotgunSfx();
           final spawnPos = Vector2(this.position.x + 128,
               this.position.y + 64);
           game.world.add(Bullet(startingPosition: spawnPos));

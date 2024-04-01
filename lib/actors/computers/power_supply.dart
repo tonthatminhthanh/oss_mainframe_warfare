@@ -3,9 +3,11 @@ import 'dart:math';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:mw_project/actors/currencies/ion.dart';
 import 'package:mw_project/actors/placeable_entity.dart';
 import 'package:mw_project/constants/default_config.dart';
+import 'package:mw_project/objects/audio_manager.dart';
 
 import '../../constants/team.dart';
 
@@ -29,7 +31,7 @@ class PowerSupply extends PlaceableEntity
   PowerSupply({ String characterName = "power_supply",
      Team myTeam = Team.defender, int hp = DEFAULT_COMPUTER_HP, double rechargeTime = FAST_RECHARGE, })
   : super(myTeam: myTeam, hp: hp, rechargeTime: rechargeTime, characterName: characterName
-      , cost: 100)
+      , cost: 50)
   {
     interval
     = Timer(1, repeat: true, onTick: () => elapsedSecs += 1,);
@@ -92,9 +94,12 @@ class PowerSupply extends PlaceableEntity
             {
               if(animationTicker!.currentIndex == 6)
               {
+                FlameAudio.play("sfx/powerup.wav", volume: AudioManager.getSfxVolune());
                 final spawnPos = Vector2(this.position.x + Random().nextInt(5) - 5 + 121,
                     this.position.y + Random().nextInt(5) - 5 + 64);
-                game.world.add(Ion(position: spawnPos));
+                var ion = Ion(position: spawnPos);
+                ion.priority = 5;
+                game.world.add(ion);
               }
             }
         };

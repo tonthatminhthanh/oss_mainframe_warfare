@@ -51,6 +51,7 @@ class Level extends World with HasGameRef<MainframeWarfare>
     _attackersCount--;
     if(canCallNewWave())
       {
+        print("calling new wave!!");
         game.getDirector().callNewWave();
         _attackersCountInCurrentWave = 0;
       }

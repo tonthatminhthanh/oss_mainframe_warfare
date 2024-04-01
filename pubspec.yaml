@@ -44,6 +44,7 @@ dependencies:
   firebase_auth: ^4.17.5
   google_sign_in: ^6.2.1
   http: ^1.2.0
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
@@ -90,6 +91,10 @@ flutter:
     - assets/images/sprites/projectiles/
     - assets/images/level/
     - assets/images/hud/item_frames/computers/
+    - assets/images/background/
+    - assets/audio/
+    - assets/audio/sfx/
+    - assets/audio/bgm/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

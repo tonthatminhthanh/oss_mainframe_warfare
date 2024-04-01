@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "514661727749",
+    "project_id": "mainframe-warfare",
+    "storage_bucket": "mainframe-warfare.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514661727749:android:97b0cf07bc88aac096a66c",
+        "android_client_info": {
+          "package_name": "thanh.ttm.mw_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "514661727749-kb60osef9amfcei8p6mietve8nqugi37.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "thanh.ttm.mw_project",
+            "certificate_hash": "646b93474fe7e5ce4625748f3c5c8f2ec913eb2e"
+          }
+        },
+        {
+          "client_id": "514661727749-osh28edqf4lmr7lp0a3oa00deli8raoo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_Y_eNrGOZCxlUMXDxZ_y04n4JX5Fd55Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "514661727749-osh28edqf4lmr7lp0a3oa00deli8raoo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "514661727749-n3mc5g11lvn1hocqaskc2osgd85mc7ml.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "thanh.ttm.mwProject.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

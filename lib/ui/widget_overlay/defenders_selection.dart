@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mw_project/actors/computers/claymore.dart';
@@ -9,8 +10,10 @@ import 'package:mw_project/actors/computers/rifleman.dart';
 import 'package:mw_project/actors/computers/test_dummy.dart';
 import 'package:mw_project/actors/placeable_entity.dart';
 import 'package:mw_project/constants/default_config.dart';
+import 'package:mw_project/objects/audio_manager.dart';
 
 import '../../mainframe_warfare.dart';
+import 'loading_screen.dart';
 
 List<PlaceableEntity> registeredEntities = [
   PowerSupply(),
@@ -112,6 +115,8 @@ class _DefenderSelectionState extends State<DefenderSelection> {
         ),
         ElevatedButton(
             onPressed: (widget.selectedCount == MAX_DEFENDERS_COUNT) ? () {
+              FlameAudio.bgm.stop();
+              FlameAudio.bgm.play('bgm/deepdive.wav', volume: AudioManager.getBgmVolume());
               widget.gameRef.overlays.remove(DefenderSelection.ID);
               widget.gameRef.getDirector().loadDefendersList();
             widget.gameRef.resumeEngine();

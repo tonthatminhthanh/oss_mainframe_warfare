@@ -23,6 +23,7 @@ abstract class Projectile extends SpriteComponent with CollisionCallbacks, HasGa
   @override
   FutureOr<void> onLoad() {
     loadAnimation();
+    priority = 5;
     super.onLoad();
   }
 
