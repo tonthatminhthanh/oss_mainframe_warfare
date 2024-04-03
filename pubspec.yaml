@@ -79,6 +79,7 @@ flutter:
     - assets/images/sprites/computers/power_supply/
     - assets/images/sprites/computers/rifleman/
     - assets/images/sprites/computers/hunter/
+    - assets/images/sprites/computers/laser_man/
     - assets/images/sprites/computers/claymore/
     - assets/images/sprites/computers/dynamite/
     - assets/images/sprites/computers/test_dummy/

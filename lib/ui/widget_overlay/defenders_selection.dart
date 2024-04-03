@@ -2,9 +2,11 @@ import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mw_project/actors/computers/claymore.dart';
 import 'package:mw_project/actors/computers/dynamite.dart';
 import 'package:mw_project/actors/computers/hunter.dart';
+import 'package:mw_project/actors/computers/laser_man.dart';
 import 'package:mw_project/actors/computers/power_supply.dart';
 import 'package:mw_project/actors/computers/rifleman.dart';
 import 'package:mw_project/actors/computers/test_dummy.dart';
@@ -21,7 +23,8 @@ List<PlaceableEntity> registeredEntities = [
   TestDummy(),
   Claymore(),
   Dynamite(),
-  Hunter()
+  Hunter(),
+  LaserMan()
 ];
 
 class DefenderItem extends StatefulWidget {
@@ -70,53 +73,55 @@ class _DefenderSelectionState extends State<DefenderSelection> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width / 2,
-            ),
-            Expanded(
-              child: GridView.builder(
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-                itemCount: registeredEntities.length,
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      widget.selected[index] = !widget.selected[index];
-                    });
-                    if(widget.selected[index])
-                      {
-                        if(widget.selectedCount == widget.maxCount)
-                          {
-                            widget.selected[index] = false;
-                          }
-                        else
-                          {
-                            widget.gameRef.getDirector().addDefenderToList(registeredEntities[index]);
-                            widget.selectedCount++;
-                          }
-                      }
-                    else
-                      {
-                        widget.gameRef.getDirector().removeDefenderFromList(registeredEntities[index]);
-                        widget.selectedCount--;
-                      }
-                  },
-                  child: DefenderItem(
-                    entity: registeredEntities[index],
-                    selected: widget.selected[index],
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width / 2,
+              ),
+              Expanded(
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+                  itemCount: registeredEntities.length,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        widget.selected[index] = !widget.selected[index];
+                      });
+                      if(widget.selected[index])
+                        {
+                          if(widget.selectedCount == widget.maxCount)
+                            {
+                              widget.selected[index] = false;
+                            }
+                          else
+                            {
+                              widget.gameRef.getDirector().addDefenderToList(registeredEntities[index]);
+                              widget.selectedCount++;
+                            }
+                        }
+                      else
+                        {
+                          widget.gameRef.getDirector().removeDefenderFromList(registeredEntities[index]);
+                          widget.selectedCount--;
+                        }
+                    },
+                    child: DefenderItem(
+                      entity: registeredEntities[index],
+                      selected: widget.selected[index],
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
         ElevatedButton(
             onPressed: (widget.selectedCount == MAX_DEFENDERS_COUNT) ? () {
               FlameAudio.bgm.stop();
-              FlameAudio.bgm.play('bgm/deepdive.wav', volume: AudioManager.getBgmVolume());
+              //FlameAudio.bgm.play('bgm/deepdive.wav', volume: AudioManager.getBgmVolume());
               widget.gameRef.overlays.remove(DefenderSelection.ID);
               widget.gameRef.getDirector().loadDefendersList();
             widget.gameRef.resumeEngine();

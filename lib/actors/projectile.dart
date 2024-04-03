@@ -38,8 +38,10 @@ abstract class Projectile extends SpriteComponent with CollisionCallbacks, HasGa
     removeFromParent();
   }
 
+
+
   @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     if(other is PlaceableEntity)
       {
         if(other.getTeam() != _myTeam)
@@ -47,7 +49,7 @@ abstract class Projectile extends SpriteComponent with CollisionCallbacks, HasGa
             attack(other);
           }
       }
-    super.onCollision(intersectionPoints, other);
+    super.onCollisionStart(intersectionPoints, other);
   }
 
   @override

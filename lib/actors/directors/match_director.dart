@@ -12,6 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:mw_project/actors/computers/claymore.dart';
 import 'package:mw_project/actors/computers/dynamite.dart';
 import 'package:mw_project/actors/computers/hunter.dart';
+import 'package:mw_project/actors/computers/laser_man.dart';
 import 'package:mw_project/actors/computers/power_supply.dart';
 import 'package:mw_project/actors/computers/rifleman.dart';
 import 'package:mw_project/actors/computers/test_dummy.dart';
@@ -264,6 +265,9 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
           break;
         case "test_dummy":
           entity = TestDummy();
+          break;
+        case "laser_man":
+          entity = LaserMan();
           break;
         default:
           entity = PowerSupply();
