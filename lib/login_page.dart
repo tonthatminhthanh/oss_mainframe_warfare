@@ -74,12 +74,14 @@ class _LoginPageState extends State<LoginPage> {
       {
         UserScoreSnapshot.addUserScores(
           UserScore(
+            uid: authResult.user!.uid,
               kills: 0,
               maxWave: 0
           )
         );
       }
 
+      UserScoreSnapshot.setName();
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => MainMenuPage(),)
       );

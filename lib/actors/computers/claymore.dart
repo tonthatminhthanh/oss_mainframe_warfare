@@ -14,7 +14,7 @@ class Claymore extends PlaceableEntity
     super.characterName = "claymore",
     super.hp = DEFAULT_COMPUTER_HP,
     super.rechargeTime = SLOW_RECHARGE,
-    super.cost = 50
+    super.cost = 25
       });
 
   @override

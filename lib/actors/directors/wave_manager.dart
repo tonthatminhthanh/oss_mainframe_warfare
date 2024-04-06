@@ -27,7 +27,7 @@ class WaveManager
   {
     for(int i = 0; i < attackerScores.length;i++)
       {
-        attackerScores[i] += currentMainWave * 2;
+        attackerScores[i] += currentMainWave * 5; //
       }
     print("Main wave $currentMainWave: $attackerScores");
     xCoords = List.filled(Random().nextInt(135) + GENERAL_HEIGHT, SCREEN_WIDTH + 128);

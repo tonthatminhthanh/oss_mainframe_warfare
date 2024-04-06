@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mw_project/mainframe_warfare.dart';
+import 'package:mw_project/pages/leaderboard.dart';
 import 'package:mw_project/ui/widget_overlay/defenders_selection.dart';
 import 'package:mw_project/ui/widget_overlay/game_over.dart';
 import 'package:mw_project/ui/widget_overlay/loading_screen.dart';
@@ -60,18 +61,34 @@ class _MainMenuPageState extends State<MainMenuPage> {
                 child: Text("Play!", style: TextStyle(fontFamily: "Silver"),)
             ),
             Text("Developed by Tôn Thất Minh Thành. Font made by Poppy Works.", style: TextStyle(fontFamily: "Silver"),),
-            Align(child: Container(
-              child: IconButton(
-                icon: Icon(Icons.exit_to_app),
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                  GoogleSignIn().signOut();
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => LoginPage(),)
-                  );
-                },
+            Align(
+              child: Row(
+                children: [
+                  Container(
+                    child: IconButton(
+                      icon: Icon(Icons.exit_to_app),
+                      onPressed: () {
+                        FirebaseAuth.instance.signOut();
+                        GoogleSignIn().signOut();
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) => LoginPage(),)
+                        );
+                      },
+                    ),
+                  ),
+                  Container(
+                    child: IconButton(
+                      icon: Icon(Icons.book),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => LeaderboardPage(),)
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ), alignment: Alignment.bottomLeft,)
+              alignment: Alignment.bottomLeft,)
           ],
         ),
       ),

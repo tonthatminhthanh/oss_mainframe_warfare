@@ -13,7 +13,7 @@ class Dynamite extends PlaceableEntity
 
   Dynamite({Team myTeam = Team.defender, double rechargeTime = VERY_SLOW_RECHARGE})
       : super(characterName: "dynamite",
-      hp: TEST_DUMMY_HP, myTeam: myTeam, rechargeTime: rechargeTime, cost: 175);
+      hp: TEST_DUMMY_HP, myTeam: myTeam, rechargeTime: rechargeTime, cost: 150);
 
   @override
   PlaceableEntity clone() {

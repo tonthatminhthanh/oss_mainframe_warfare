@@ -8,10 +8,10 @@ import '../placeable_entity.dart';
 class LaserMan extends Rifleman
 {
   bool _hasBullet = true;
-  Timer _reloadTimer = Timer(0.75);
+  Timer _reloadTimer = Timer(0.1); //
 
   LaserMan({super.myTeam, String name = "laser_man"})
-      : super(characterName: name, hp: 200, cost: 150);
+      : super(characterName: name, hp: 200, cost: 125);
 
   @override
   PlaceableEntity clone() {

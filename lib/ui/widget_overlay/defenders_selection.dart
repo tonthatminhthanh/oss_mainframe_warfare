@@ -41,10 +41,11 @@ class _DefenderItemState extends State<DefenderItem> {
   Widget build(BuildContext context) {
     return Stack(
         children: [
-          Image.asset("assets/images/hud/item_frames/computers/${widget.entity.getName()}.png", width: 128, height: 128,),
+          Image.asset("assets/images/hud/item_frames/computers/"
+              "${widget.entity.getName()}.png", width: 128, height: 128,),
           widget.selected ? Icon(Icons.check, size: 64,) : Container(),
           Positioned(
-            bottom: 0,
+            bottom: 8,
             left: 64,
             child: Text(widget.entity.getPrice().toString(), style: TextStyle(
                 fontFamily: "Silver", fontSize: 24, decoration: TextDecoration.none,
@@ -121,7 +122,7 @@ class _DefenderSelectionState extends State<DefenderSelection> {
         ElevatedButton(
             onPressed: (widget.selectedCount == MAX_DEFENDERS_COUNT) ? () {
               FlameAudio.bgm.stop();
-              //FlameAudio.bgm.play('bgm/deepdive.wav', volume: AudioManager.getBgmVolume());
+              FlameAudio.bgm.play('bgm/deepdive.wav', volume: AudioManager.getBgmVolume());
               widget.gameRef.overlays.remove(DefenderSelection.ID);
               widget.gameRef.getDirector().loadDefendersList();
             widget.gameRef.resumeEngine();

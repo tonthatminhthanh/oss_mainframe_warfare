@@ -1,3 +1,4 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:mw_project/actors/placeable_entity.dart';
 import 'package:mw_project/actors/projectile.dart';
@@ -12,8 +13,16 @@ class Laser extends Projectile
   int _damage;
 
   Laser({super.name = "laser", required super.startingPosition, super.myTeam = Team.defender
-    , super.damage = BASIC_BULLET_DAMAGE})
+    , super.damage = BASIC_LASER_DAMAGE})
   : _startingPos = startingPosition, _damage = damage;
+
+  @override
+  void onLoad()
+  {
+    setHitbox(RectangleHitbox(size: Vector2.all(16)));
+    addHitbox();
+    super.onLoad();
+  }
 
   @override
   void movement(double dt) {
