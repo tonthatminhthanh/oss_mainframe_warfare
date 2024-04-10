@@ -3,6 +3,7 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mw_project/actors/computers/cannon.dart';
 import 'package:mw_project/actors/computers/claymore.dart';
 import 'package:mw_project/actors/computers/dynamite.dart';
 import 'package:mw_project/actors/computers/hunter.dart';
@@ -24,7 +25,8 @@ List<PlaceableEntity> registeredEntities = [
   Claymore(),
   Dynamite(),
   Hunter(),
-  LaserMan()
+  LaserMan(),
+  Cannon()
 ];
 
 class DefenderItem extends StatefulWidget {

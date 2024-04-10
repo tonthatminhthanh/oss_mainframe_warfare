@@ -4,7 +4,9 @@ import 'package:flame/flame.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:mw_project/mainframe_warfare.dart';
+import 'package:mw_project/objects/match_result.dart';
 import 'package:mw_project/pages/main_menu.dart';
+import 'package:mw_project/pages/share_result.dart';
 
 import '../../objects/audio_manager.dart';
 
@@ -23,7 +25,7 @@ class _GameOverMenuState extends State<GameOverMenu> {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => MainMenuPage(),)
+            MaterialPageRoute(builder: (context) => ShareResultPage(wavesCount: MatchResult.getResult().wavesCount),)
         );
       },
       child: Container(

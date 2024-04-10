@@ -45,6 +45,9 @@ dependencies:
   google_sign_in: ^6.2.1
   http: ^1.2.0
   shared_preferences: ^2.2.2
+  screenshot: ^2.3.0
+  share_plus: ^8.0.3
+  path_provider: ^2.1.2
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +83,7 @@ flutter:
     - assets/images/sprites/computers/rifleman/
     - assets/images/sprites/computers/hunter/
     - assets/images/sprites/computers/laser_man/
+    - assets/images/sprites/computers/cannon/
     - assets/images/sprites/computers/claymore/
     - assets/images/sprites/computers/dynamite/
     - assets/images/sprites/computers/test_dummy/

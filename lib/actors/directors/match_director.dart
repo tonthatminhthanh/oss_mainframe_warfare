@@ -9,6 +9,7 @@ import 'package:flame/components.dart';
 import 'package:flame/timer.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:mw_project/actors/computers/cannon.dart';
 import 'package:mw_project/actors/computers/claymore.dart';
 import 'package:mw_project/actors/computers/dynamite.dart';
 import 'package:mw_project/actors/computers/hunter.dart';
@@ -23,6 +24,7 @@ import 'package:mw_project/constants/computers_items.dart';
 import 'package:mw_project/constants/default_config.dart';
 import 'package:mw_project/firebase/firebase_user_score.dart';
 import 'package:mw_project/mainframe_warfare.dart';
+import 'package:mw_project/objects/match_result.dart';
 import 'package:mw_project/ui/widget_overlay/defenders_selection.dart';
 import 'package:mw_project/objects/save_file.dart';
 import 'package:mw_project/ui/widget_overlay/game_over.dart';
@@ -66,6 +68,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
   }
 
   void gameOver() {
+    MatchResult.setResult(wavesCount: _currentMainWave);
     game.overlays.add(GameOverMenu.ID);
   }
 
@@ -268,6 +271,9 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
           break;
         case "laser_man":
           entity = LaserMan();
+          break;
+        case "cannon":
+          entity = Cannon();
           break;
         default:
           entity = PowerSupply();

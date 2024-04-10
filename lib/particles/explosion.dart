@@ -37,6 +37,8 @@ class Explosion extends SpriteAnimationComponent with HasGameRef<MainframeWarfar
     switch(_size)
     {
       case ExplosionSize.small:
+        _sizeName = "small";
+        _imageSize = _smallSize;
         break;
       case ExplosionSize.big:
         _sizeName = "big";
