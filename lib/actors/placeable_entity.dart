@@ -35,7 +35,7 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
     _rechargeTime = rechargeTime;
   }
 
-
+  //Giữ ngón tay vào entity để xoá chúng
   @override
   void onLongTapDown(TapDownEvent event) {
     if(getTeam() == Team.defender)
@@ -46,7 +46,7 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
     super.onLongTapDown(event);
   }
 
-
+  //tiếp tục truyền touch event xuống các tappable khác
   @override
   void onTapDown(TapDownEvent event) {
     event.continuePropagation = true;
@@ -62,11 +62,12 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
     super.update(dt);
   }
 
+  //Đặt HP
   void setHealth(int health)
   {
     _hp = health;
   }
-
+  //Kiểm tra HP, nếu <= thì tự huỷ entity
   @override
   void checkHealth()
   {
@@ -99,6 +100,7 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
     super.onLoad();
   }
 
+  //Load anim
   @override
   SpriteAnimation loadAnimation(String name, int amount, double stepTime, bool loop)
   {
@@ -123,17 +125,19 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
         )
     );
   }
-
+  //Đặt hitbox
   void setHitbox(RectangleHitbox rectangleHitbox)
   {
     _rectHitbox = rectangleHitbox;
   }
 
+  //Nhận hitbox
   RectangleHitbox? getHitbox()
   {
     return _rectHitbox;
   }
 
+  //Thêm hitbox
   void addHitbox()
   {
     if(getHitbox() != null)
@@ -141,25 +145,28 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
       add(getHitbox()!);
     }
   }
-
+  //Tạo entity mới cùng loại
   PlaceableEntity clone();
 
+  //Đổi đội của entity
   void swap(Team otherTeam)
   {
     _myTeam = otherTeam;
   }
 
+  //Đặt thời gian recharge
   void setRechargeTime(double rechargeTime)
   {
     _rechargeTime = rechargeTime;
   }
 
-
+  //Nhận thời gian recharge
   double getRechargeTime()
   {
     return _rechargeTime;
   }
 
+  //Trừ HP khi gọi
   void getAttacked(int damage)
   {
     if(getTeam() == Team.defender)
@@ -173,11 +180,13 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
     _hp -= damage;
   }
 
+  //Nhận HP hiện tại của entity
   int getHp()
   {
     return _hp;
   }
 
+  //Tự huỷ
   Future<void> selfDestruct()
   async {
     if(position.x <= -64)
@@ -201,16 +210,19 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
     _speedModifier = modifier;
   }
 
+  //Nhận team của entity
   Team getTeam()
   {
     return _myTeam;
   }
 
+  //Nhận tên của entity
   String getName()
   {
     return _characterName;
   }
 
+  //Nhận giá của entity
   int getPrice()
   {
     return _cost;
@@ -226,11 +238,13 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
     return _isFlipped;
   }
 
+  //Gán tile vào biến _tile
   void setTile(MyTile tile)
   {
     _tile = tile;
   }
 
+  //Xoá khỏi tile
   void removeFromTile()
   {
     if(_tile != null)

@@ -384,6 +384,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.19.0"
   js:
     dependency: transitive
     description:
@@ -553,8 +561,11 @@ packages:
     source: hosted
     version: "3.8.0"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
   screenshot:
     dependency: "direct main"
     description:
@@ -579,8 +590,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.4.0"
+<<<<<<< Updated upstream
 =======
 >>>>>>> dd06b5e2493a17fa1ffe2f385ff39d550f23cca6
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   shared_preferences:
     dependency: "direct main"
@@ -715,6 +729,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.10.2"
+  timer_builder:
+    dependency: "direct main"
+    description:
+      name: timer_builder
+      sha256: "67c5653a8d9f6ce62fe9121e520736e9da74418a919fe1c0e181b5d2627dbc4a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   typed_data:
     dependency: transitive
     description:

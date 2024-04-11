@@ -41,6 +41,7 @@ class _MainframeWarfareAppState extends State<MainframeWarfareApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
       darkTheme: ThemeData(
         brightness: Brightness.dark,

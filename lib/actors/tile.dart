@@ -24,17 +24,22 @@ abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<Ma
     super.onLoad();
   }
 
+  //Kiểm tra có thể đặt được entity lên tile không
   bool canPlaceOn();
 
+  //Đặt status boolean
   void setStatus(bool value);
 
+  //Nhận status
   bool getStatus();
 
+  //Kiểm tra tile có entity nằm trên hay không
   bool isNotOccupied()
   {
     return _occupant == null;
   }
 
+  //Đặt lại occupant
   void overwriteOccupant(PlaceableEntity entity)
   {
     if(!isNotOccupied())
@@ -65,6 +70,7 @@ abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<Ma
     }
   }
 
+  //Đặt occupant
   void setOccupant(PlaceableEntity entity)
   {
     if(canPlaceOn())
@@ -92,11 +98,13 @@ abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<Ma
       }
   }
 
+  //Lấy occupant
   PlaceableEntity? getOccupant()
   {
     return _occupant;
   }
 
+  //Đặt entity lên tile khi tap down
   @override
   void onTapDown(TapDownEvent event) {
     MatchDirector director = gameRef.getDirector();
@@ -109,6 +117,7 @@ abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<Ma
     super.onTapDown(event);
   }
 
+  //Xoá occupant khỏi tile
   void removeOccupant()
   {
     if(_occupant != null)

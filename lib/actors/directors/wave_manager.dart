@@ -10,11 +10,13 @@ import 'package:mw_project/mainframe_warfare.dart';
 
 import '../placeable_entity.dart';
 
+//Mảng điểm gốc
 const List<int> defaultAttackerScores = [1, 1, 1, 2, 2, 3, 3, 3, 4, 10, 5, 5, 5, 6, 6, 7, 7, 7, 8, 20];
 
 class WaveManager
 {
   List<int> attackerScores = defaultAttackerScores.toList();
+  //Giá trị của các attacker entity
   Map<String, int> attackersList = {
       "basic_bot": 1,
       "light_armored_bot": 3,
@@ -25,14 +27,23 @@ class WaveManager
 
   WaveManager({required int currentMainWave})
   {
+    //Tăng mảng điểm theo số ván * 5 khi số ván <= 100
     for(int i = 0; i < attackerScores.length;i++)
       {
+<<<<<<< Updated upstream
         attackerScores[i] += currentMainWave * 5; //
+=======
+        if(currentMainWave <= 100)
+          {
+            attackerScores[i] += currentMainWave * 5;
+          }
+>>>>>>> Stashed changes
       }
     print("Main wave $currentMainWave: $attackerScores");
     xCoords = List.filled(Random().nextInt(135) + GENERAL_HEIGHT, SCREEN_WIDTH + 128);
   }
 
+  //Nhận các attacker entity cho lượt tấn công
   List<PlaceableEntity> getEntitiesForWave(int currentWave) //
   {
     List<PlaceableEntity> entitiesToSpawn = [];

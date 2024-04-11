@@ -4,7 +4,7 @@ import 'package:mw_project/actors/placeable_entity.dart';
 import 'package:mw_project/constants/team.dart';
 import 'package:mw_project/constants/default_config.dart';
 
-import '../../particles/explosion.dart';
+import '../particles/explosion.dart';
 
 class Dynamite extends PlaceableEntity
 {

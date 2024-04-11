@@ -59,7 +59,11 @@ class UserScoreSnapshot
   static Stream<List<UserScoreSnapshot>> userWavesFromFirebase()
   {
     var streamUsers = FirebaseFirestore.instance.collection("user_data")
+<<<<<<< Updated upstream
         .orderBy("maxWave").limit(10).snapshots();
+=======
+        .orderBy("maxWave", descending: true).limit(10).snapshots();
+>>>>>>> Stashed changes
 
     Stream<List<DocumentSnapshot>> streamList = streamUsers.map(
             (queryInfo) => queryInfo.docs);
@@ -70,7 +74,11 @@ class UserScoreSnapshot
   static Stream<List<UserScoreSnapshot>> userKillsFromFirebase()
   {
     var streamUsers = FirebaseFirestore.instance.collection("user_data")
+<<<<<<< Updated upstream
         .orderBy("kills").limit(10).snapshots();
+=======
+        .orderBy("kills", descending: true).limit(10).snapshots();
+>>>>>>> Stashed changes
 
     Stream<List<DocumentSnapshot>> streamList = streamUsers.map(
             (queryInfo) => queryInfo.docs);

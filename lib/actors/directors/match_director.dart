@@ -1,13 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:math';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flame/components.dart';
 import 'package:flame/timer.dart';
-import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mw_project/actors/computers/cannon.dart';
 import 'package:mw_project/actors/computers/claymore.dart';
@@ -55,6 +52,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     _defenderMoney = defenderMoney;
   }
 
+  //Thêm tiền
   void addMoney(Currency currency, int money)
   {
     switch(currency.getTeam())
@@ -67,36 +65,43 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     }
   }
 
+  //Phương thức thua game
   void gameOver() {
     MatchResult.setResult(wavesCount: _currentMainWave);
     game.overlays.add(GameOverMenu.ID);
   }
 
+  //Kiểm tra ván đang khởi động
   bool isStartingUp()
   {
     return _isStartingUp;
   }
 
+  //Khởi động ván
   void startMatch()
   {
     _isStartingUp = false;
   }
 
+  //Trừ tiền
   void decreaseMoney(int money)
   {
     _defenderMoney.value -= money;
   }
 
+  //Nhận entity đang được chọn
   PlaceableEntity? getCurrentlySelected()
   {
     return _currentlySelected;
   }
 
+  //Chọn entity
   void selectEntity(PlaceableEntity entity)
   {
     _currentlySelected = entity;
   }
 
+  //Bỏ chọn tất cả các entity ngoai trừ
   void deselectAllBut(PlaceableEntity entity)
   {
     for(DefenderGameItem item in _selectedDefenderItems)
@@ -108,6 +113,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     }
   }
 
+  //Bỏ chọn
   void emptySelection()
   {
     if(!_selectedDefenderItems.isEmpty && _currentlySelected != null)
@@ -126,6 +132,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     super.onLoad();
   }
 
+  //khởi động lại ván
   void resetMatch()
   {
     print("Resetting match");
@@ -133,6 +140,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     _currentWave = 0;
   }
 
+  //load ván game
   void loadMatch() async
   {
     if(!gameRef.overlays.isActive(LoadingScreen.ID));
@@ -153,6 +161,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     gameRef.overlays.add(DefenderSelection.ID);
   }
 
+  //load danh sách entity
   void loadDefendersList()
   {
     for(PlaceableEntity entity in _selectedDefenders)
@@ -169,6 +178,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
       }
   }
 
+  //gọi lượt mới
   void callNewWave()
   {
     _currentWave++;
@@ -220,6 +230,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     super.update(dt);
   }
 
+  //Nhận file lưu game
   Future<Map<String, dynamic>?> _grabSave() async
   {
     final storageRef = FirebaseStorage.instance.ref();
@@ -239,11 +250,13 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     return data;
   }
 
+  //Nhận giá trị tiền
   ValueNotifier<int> getDefenderMoney()
   {
     return _defenderMoney;
   }
 
+  //Nhập dữ liệu vào level
   void _loadSaveToMap()
   {
     save!.tiles.forEach((element) {
@@ -286,6 +299,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     });
   }
 
+  //tạo file lưu game
   SaveFile _createSave()
   {
     var tilesWithEntity = game.getLevel().getTilesList().where(
@@ -308,6 +322,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     );
   }
 
+  //upload file lưu game lên Firebase
   void _uploadSaveToFirebase(String jsonString)
   {
     game.overlays.add(LoadingScreen.ID);
@@ -333,6 +348,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     });
   }
 
+  //thêm defender entity vào danh sách
   void addDefenderToList(PlaceableEntity entity)
   {
     if(!_selectedDefenders.contains(entity))
@@ -341,6 +357,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
       }
   }
 
+  //xoá defender khỏi danh sách
   void removeDefenderFromList(PlaceableEntity entity)
   {
     if(_selectedDefenders.contains(entity))

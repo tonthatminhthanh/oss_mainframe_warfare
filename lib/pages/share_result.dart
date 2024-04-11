@@ -62,7 +62,11 @@ class ShareResultPage extends StatelessWidget {
 
     await Share.shareXFiles([xFile], text: "I am "
         " ${FirebaseAuth.instance.currentUser!.displayName} "
+<<<<<<< Updated upstream
         "and I lost to the hordes of viruses on wave $wavesCount} in Mainframe Warfare!",);
+=======
+        "and I lost to the hordes of viruses on wave $wavesCount in Mainframe Warfare!",);
+>>>>>>> Stashed changes
   }
 
   Widget _createResultImage()
@@ -79,7 +83,11 @@ class ShareResultPage extends StatelessWidget {
             , width: 150, height: 150,),
           Text("I am "
               " ${FirebaseAuth.instance.currentUser!.displayName} "
+<<<<<<< Updated upstream
               "and I lost to the hordes of viruses on wave $wavesCount} in Mainframe Warfare!"
+=======
+              "and I lost to the hordes of viruses on wave $wavesCount in Mainframe Warfare!"
+>>>>>>> Stashed changes
             , style: TextStyle(
                 fontWeight: FontWeight.normal,
                 decoration: TextDecoration.none,

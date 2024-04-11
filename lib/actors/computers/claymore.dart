@@ -3,7 +3,7 @@ import 'package:flame/components.dart';
 import 'package:mw_project/actors/placeable_entity.dart';
 import 'package:mw_project/constants/team.dart';
 import 'package:mw_project/constants/default_config.dart';
-import 'package:mw_project/particles/explosion.dart';
+import '../particles/explosion.dart';
 
 class Claymore extends PlaceableEntity
 {

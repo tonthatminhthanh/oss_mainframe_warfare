@@ -31,15 +31,13 @@ abstract class Projectile extends SpriteComponent with CollisionCallbacks, HasGa
   {
     _myTeam = otherTeam;
   }
-
+  //Tấn công entity
   void attack(PlaceableEntity entity)
   {
     entity.getAttacked(_damage);
     removeFromParent();
   }
-
-
-
+  //Nếu projectile collide với entity thì tấn công entity đó
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     if(other is PlaceableEntity)
@@ -58,9 +56,9 @@ abstract class Projectile extends SpriteComponent with CollisionCallbacks, HasGa
     selfDestruct();
     super.update(dt);
   }
-
+  //Di chuyển projectile
   void movement(double dt);
-
+  //Tự huỷ khi vượt quá màn hình chơi
   void selfDestruct()
   {
     if(position.x >= SCREEN_WIDTH + TILE_SIZE)
@@ -68,16 +66,20 @@ abstract class Projectile extends SpriteComponent with CollisionCallbacks, HasGa
         removeFromParent();
       }
   }
+
+  //Load anim của projectile
   void loadAnimation()
   {
     sprite = Sprite(game.images.fromCache("sprites/projectiles/$_name.png"));
   }
 
+  //Đặt hitbox
   void setHitbox(RectangleHitbox hitbox)
   {
     _hitbox = hitbox;
   }
 
+  //Thêm hitbo
   void addHitbox()
   {
     if(_hitbox != null)
