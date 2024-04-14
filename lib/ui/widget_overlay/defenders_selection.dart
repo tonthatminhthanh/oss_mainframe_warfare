@@ -14,6 +14,7 @@ import 'package:mw_project/actors/computers/test_dummy.dart';
 import 'package:mw_project/actors/placeable_entity.dart';
 import 'package:mw_project/constants/default_config.dart';
 import 'package:mw_project/objects/audio_manager.dart';
+import 'package:mw_project/ui/widget_overlay/wave_display.dart';
 
 import '../../mainframe_warfare.dart';
 import 'loading_screen.dart';
@@ -129,6 +130,7 @@ class _DefenderSelectionState extends State<DefenderSelection> {
               widget.gameRef.getDirector().loadDefendersList();
             widget.gameRef.resumeEngine();
               widget.gameRef.getDirector().startMatch();
+              widget.gameRef.overlays.add(WaveDisplay.ID);
             } : null,
             child: Text("Start match", style: TextStyle(fontFamily: "Silver"),)
         )

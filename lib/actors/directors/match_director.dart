@@ -67,7 +67,11 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
 
   //Phương thức thua game
   void gameOver() {
+<<<<<<< Updated upstream
     MatchResult.setResult(wavesCount: _currentMainWave);
+=======
+    MatchResult.setMainWavesCount(mainWavesCount: _currentMainWave);
+>>>>>>> Stashed changes
     game.overlays.add(GameOverMenu.ID);
   }
 
@@ -182,6 +186,8 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
   void callNewWave()
   {
     _currentWave++;
+    MatchResult.setMainWavesCount(mainWavesCount: _currentMainWave);
+    MatchResult.setWavesCount(wavesCount: _currentWave);
     if(_currentWave < defaultAttackerScores.length)
     {
       print("Current wave: $_currentWave, main wave: $_currentMainWave");

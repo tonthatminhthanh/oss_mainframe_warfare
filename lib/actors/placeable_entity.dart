@@ -26,10 +26,10 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
   MyTile? _tile;
 
   PlaceableEntity({required Team myTeam, required String characterName,
-    required int hp, required double rechargeTime, double scaleValue = 2.0, int cost = 0}) : _cost = cost
+    required int hp, required double rechargeTime, double scaleWidth = 2.0, double scaleHeight = 2.0, int cost = 0}) : _cost = cost
   {
     _characterName = characterName;
-    scale = Vector2(scaleValue, scaleValue);
+    scale = Vector2(scaleWidth, scaleHeight);
     _myTeam = myTeam;
     _hp = hp;
     _rechargeTime = rechargeTime;

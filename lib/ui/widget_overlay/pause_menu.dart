@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 import 'package:mw_project/pages/main_menu.dart';
 import 'package:mw_project/ui/widget_overlay/pause_button.dart';
+import 'package:mw_project/ui/widget_overlay/wave_display.dart';
 
 class PauseMenu extends StatelessWidget {
   static String ID = "PauseMenu";
@@ -31,6 +32,7 @@ class PauseMenu extends StatelessWidget {
           ElevatedButton(
               onPressed: () {
                 gameRef.overlays.remove(PauseMenu.ID);
+                gameRef.overlays.remove(WaveDisplay.ID);
                 FlameAudio.bgm.dispose();
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => MainMenuPage(),)

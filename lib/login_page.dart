@@ -84,6 +84,10 @@ class _LoginPageState extends State<LoginPage> {
 
       UserScoreSnapshot.setName();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
+>>>>>>> Stashed changes
 =======
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
 >>>>>>> Stashed changes

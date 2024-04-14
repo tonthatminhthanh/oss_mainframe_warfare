@@ -5,6 +5,7 @@ import 'package:mw_project/actors/viruses/armored_bot.dart';
 import 'package:mw_project/actors/viruses/basic_bot.dart';
 import 'package:mw_project/actors/viruses/light_armored_bot.dart';
 import 'package:mw_project/actors/viruses/speed_bot.dart';
+import 'package:mw_project/actors/viruses/trojan_horse.dart';
 import 'package:mw_project/constants/default_config.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 
@@ -19,9 +20,10 @@ class WaveManager
   //Giá trị của các attacker entity
   Map<String, int> attackersList = {
       "basic_bot": 1,
-      "light_armored_bot": 3,
+      "light_armored_bot": 2,
       "armored_bot": 4,
       "speed_bot": 4,
+      "trojan_horse": 10
     };
   List<double> xCoords = [];
 
@@ -31,11 +33,18 @@ class WaveManager
     for(int i = 0; i < attackerScores.length;i++)
       {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         attackerScores[i] += currentMainWave * 5; //
 =======
         if(currentMainWave <= 100)
           {
             attackerScores[i] += currentMainWave * 5;
+          }
+>>>>>>> Stashed changes
+=======
+        if(currentMainWave <= 50)
+          {
+            attackerScores[i] += currentMainWave * 10;
           }
 >>>>>>> Stashed changes
       }
@@ -74,6 +83,9 @@ class WaveManager
                 break;
               case "speed_bot":
                 placeableEntity = SpeedBot();
+                break;
+              case "trojan_horse":
+                placeableEntity = TrojanHorse();
                 break;
             }
             placeableEntity.position = Vector2(xCoords[yIndex - 1], (TILE_SIZE * yIndex));

@@ -18,8 +18,10 @@ class BasicBot extends PlaceableEntity
 
   BasicBot({ int damage = BASIC_VIRUS_DAMAGE, double stepTime = 0.075,
     double hitCooldown = BASIC_BOT_HIT_COOLDOWN, double moveSpeed = BASIC_BOT_SPEED,
+    double scaleWidth = 2.0, double scaleHeight = 2.0,
     super.myTeam = Team.attacker, String characterName = "basic_bot",
-     super.hp = BASIC_BOT_HEALTH, super.rechargeTime = 0}) : super(characterName: characterName)
+     super.hp = BASIC_BOT_HEALTH, super.rechargeTime = 0
+  }) : super(characterName: characterName, scaleWidth: scaleWidth, scaleHeight: scaleHeight)
   {
     _damage = damage;
     _moveSpeed = moveSpeed;

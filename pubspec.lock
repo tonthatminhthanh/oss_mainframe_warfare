@@ -562,8 +562,11 @@ packages:
     version: "3.8.0"
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
   screenshot:
@@ -591,8 +594,11 @@ packages:
     source: hosted
     version: "3.4.0"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
 >>>>>>> dd06b5e2493a17fa1ffe2f385ff39d550f23cca6
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

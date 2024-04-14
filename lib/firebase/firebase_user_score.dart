@@ -60,7 +60,11 @@ class UserScoreSnapshot
   {
     var streamUsers = FirebaseFirestore.instance.collection("user_data")
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         .orderBy("maxWave").limit(10).snapshots();
+=======
+        .orderBy("maxWave", descending: true).limit(10).snapshots();
+>>>>>>> Stashed changes
 =======
         .orderBy("maxWave", descending: true).limit(10).snapshots();
 >>>>>>> Stashed changes
@@ -75,7 +79,11 @@ class UserScoreSnapshot
   {
     var streamUsers = FirebaseFirestore.instance.collection("user_data")
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         .orderBy("kills").limit(10).snapshots();
+=======
+        .orderBy("kills", descending: true).limit(10).snapshots();
+>>>>>>> Stashed changes
 =======
         .orderBy("kills", descending: true).limit(10).snapshots();
 >>>>>>> Stashed changes

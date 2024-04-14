@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import 'package:mw_project/mainframe_warfare.dart';
 import 'package:mw_project/pages/leaderboard.dart';
 import 'package:mw_project/ui/widget_overlay/defenders_selection.dart';
@@ -16,6 +17,11 @@ import 'package:mw_project/ui/widget_overlay/pause_button.dart';
 import 'package:mw_project/ui/widget_overlay/pause_menu.dart';
 =======
 import 'package:intl/intl.dart';
+import 'package:timer_builder/timer_builder.dart';
+>>>>>>> Stashed changes
+=======
+import 'package:intl/intl.dart';
+import 'package:mw_project/ui/widget_overlay/wave_display.dart';
 import 'package:timer_builder/timer_builder.dart';
 >>>>>>> Stashed changes
 
@@ -81,7 +87,9 @@ class MainMenuPage extends StatelessWidget {
                                 PauseButton.ID: (BuildContext context, MainframeWarfare gameRef) => PauseButton(gameRef: gameRef,),
                                 PauseMenu.ID: (BuildContext context, MainframeWarfare gameRef) => PauseMenu(gameRef: gameRef,),
                                 GameOverMenu.ID: (BuildContext context, MainframeWarfare gameRef) => GameOverMenu(gameRef: gameRef,),
+                                WaveDisplay.ID: (BuildContext context, MainframeWarfare gameRef) => WaveDisplay(),
                               },
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                           ),
                       )
@@ -120,6 +128,8 @@ class MainMenuPage extends StatelessWidget {
               alignment: Alignment.bottomLeft,)
           ],
 =======
+=======
+>>>>>>> Stashed changes
                             ),
                           )
                           );
@@ -152,6 +162,9 @@ class MainMenuPage extends StatelessWidget {
                 ),
               ],
             )
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         ),
       ),

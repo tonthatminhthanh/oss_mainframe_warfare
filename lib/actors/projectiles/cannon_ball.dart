@@ -5,7 +5,12 @@ import 'package:mw_project/constants/team.dart';
 import 'package:mw_project/actors/projectile.dart';
 import 'package:mw_project/constants/default_config.dart';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import 'package:mw_project/particles/explosion.dart';
+=======
+
+import '../particles/explosion.dart';
+>>>>>>> Stashed changes
 =======
 
 import '../particles/explosion.dart';
