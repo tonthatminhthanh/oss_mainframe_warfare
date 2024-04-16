@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mw_project/firebase/firebase_user_score.dart';
 import 'package:mw_project/objects/user_score.dart';
-import 'package:mw_project/pages/main_menu.dart';
 import 'package:mw_project/pages/main_menu.dart';
 
 class LoginPage extends StatefulWidget {
@@ -83,14 +81,7 @@ class _LoginPageState extends State<LoginPage> {
       }
 
       UserScoreSnapshot.setName();
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
->>>>>>> Stashed changes
-=======
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
->>>>>>> Stashed changes
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => MainMenuPage(),)
       );

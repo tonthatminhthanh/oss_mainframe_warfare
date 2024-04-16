@@ -1,8 +1,5 @@
-import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mw_project/actors/computers/cannon.dart';
 import 'package:mw_project/actors/computers/claymore.dart';
 import 'package:mw_project/actors/computers/dynamite.dart';
@@ -17,7 +14,6 @@ import 'package:mw_project/objects/audio_manager.dart';
 import 'package:mw_project/ui/widget_overlay/wave_display.dart';
 
 import '../../mainframe_warfare.dart';
-import 'loading_screen.dart';
 
 List<PlaceableEntity> registeredEntities = [
   PowerSupply(),

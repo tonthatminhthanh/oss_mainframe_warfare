@@ -1,16 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flame/flame.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 import 'package:mw_project/objects/match_result.dart';
-import 'package:mw_project/pages/main_menu.dart';
 import 'package:mw_project/pages/share_result.dart';
-<<<<<<< Updated upstream
-=======
 import 'package:mw_project/ui/widget_overlay/wave_display.dart';
->>>>>>> Stashed changes
 
 import '../../objects/audio_manager.dart';
 
@@ -30,12 +25,8 @@ class _GameOverMenuState extends State<GameOverMenu> {
       onTap: () {
         widget.gameRef.overlays.remove(WaveDisplay.ID);
         Navigator.of(context).pushReplacement(
-<<<<<<< Updated upstream
-            MaterialPageRoute(builder: (context) => ShareResultPage(wavesCount: MatchResult.getResult().wavesCount),)
-=======
             MaterialPageRoute(builder: (context) => ShareResultPage(
                 wavesCount: MatchResult.getResult().mainWavesCount.value),)
->>>>>>> Stashed changes
         );
       },
       child: Container(

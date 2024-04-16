@@ -7,7 +7,6 @@ import 'package:mw_project/actors/viruses/light_armored_bot.dart';
 import 'package:mw_project/actors/viruses/speed_bot.dart';
 import 'package:mw_project/actors/viruses/trojan_horse.dart';
 import 'package:mw_project/constants/default_config.dart';
-import 'package:mw_project/mainframe_warfare.dart';
 
 import '../placeable_entity.dart';
 
@@ -32,21 +31,10 @@ class WaveManager
     //Tăng mảng điểm theo số ván * 5 khi số ván <= 100
     for(int i = 0; i < attackerScores.length;i++)
       {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        attackerScores[i] += currentMainWave * 5; //
-=======
-        if(currentMainWave <= 100)
-          {
-            attackerScores[i] += currentMainWave * 5;
-          }
->>>>>>> Stashed changes
-=======
         if(currentMainWave <= 50)
           {
             attackerScores[i] += currentMainWave * 10;
           }
->>>>>>> Stashed changes
       }
     print("Main wave $currentMainWave: $attackerScores");
     xCoords = List.filled(Random().nextInt(135) + GENERAL_HEIGHT, SCREEN_WIDTH + 128);

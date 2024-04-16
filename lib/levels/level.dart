@@ -1,12 +1,9 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
-import 'package:flame/geometry.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:mw_project/actors/computers/power_supply.dart';
 import 'package:mw_project/actors/fixed_tile.dart';
 import 'package:mw_project/actors/tile.dart';
-import 'package:mw_project/constants/team.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 import 'package:mw_project/ui/hud/money_display.dart';
 

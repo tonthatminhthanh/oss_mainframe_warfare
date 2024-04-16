@@ -1,11 +1,6 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:firebase_auth/firebase_auth.dart';
-<<<<<<< Updated upstream
-=======
-import 'package:flutter/cupertino.dart';
->>>>>>> Stashed changes
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -22,42 +17,6 @@ class ShareResultPage extends StatelessWidget {
     return Row(
       children: [
         _createResultImage(),
-<<<<<<< Updated upstream
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Share your achievement?"
-              , style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  decoration: TextDecoration.none,
-                  color: Colors.white,
-                  fontSize: 24, fontFamily: "Silver"),),
-            ElevatedButton(
-                onPressed: () async {
-                  ScreenshotController controller = ScreenshotController();
-                  final image = await controller.captureFromWidget(_createResultImage());
-
-                  _saveAndShare(image);
-                },
-                child: Text("Let's share it!", style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    decoration: TextDecoration.none,
-                    color: Colors.white,fontSize: 24,
-                    fontFamily: "Silver"))
-            ),
-            ElevatedButton(onPressed: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => MainMenuPage(),)
-              );
-            }, child: Text("Return to menu", style: TextStyle(
-                fontWeight: FontWeight.normal,
-                decoration: TextDecoration.none,
-                color: Colors.white,fontSize: 24,
-                fontFamily: "Silver"))
-            )
-          ],
-=======
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,24 +53,12 @@ class ShareResultPage extends StatelessWidget {
               )
             ],
           ),
->>>>>>> Stashed changes
         )
       ],
     );
   }
 
   Future _saveAndShare(Uint8List bytes) async {
-<<<<<<< Updated upstream
-    XFile xFile = XFile.fromData(bytes);
-
-    await Share.shareXFiles([xFile], text: "I am "
-        " ${FirebaseAuth.instance.currentUser!.displayName} "
-<<<<<<< Updated upstream
-        "and I lost to the hordes of viruses on wave $wavesCount} in Mainframe Warfare!",);
-=======
-        "and I lost to the hordes of viruses on wave $wavesCount in Mainframe Warfare!",);
->>>>>>> Stashed changes
-=======
     final dir = await getApplicationDocumentsDirectory();
 
     XFile xFile = XFile.fromData(bytes);
@@ -120,7 +67,6 @@ class ShareResultPage extends StatelessWidget {
     await Share.shareXFiles([XFile("${dir.path}/result.png")], text: "I am "
         " ${FirebaseAuth.instance.currentUser!.displayName} "
         "and I lost to the hordes of viruses on wave $wavesCount in Mainframe Warfare!",);
->>>>>>> Stashed changes
   }
 
   Widget _createResultImage()
@@ -137,15 +83,7 @@ class ShareResultPage extends StatelessWidget {
             , width: 150, height: 150,),
           Text("I am "
               " ${FirebaseAuth.instance.currentUser!.displayName} "
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-              "and I lost to the hordes of viruses on wave $wavesCount} in Mainframe Warfare!"
-=======
               "and I lost to the hordes of viruses on wave $wavesCount in Mainframe Warfare!"
->>>>>>> Stashed changes
-=======
-              "and I lost to the hordes of viruses on wave $wavesCount in Mainframe Warfare!"
->>>>>>> Stashed changes
             , style: TextStyle(
                 fontWeight: FontWeight.normal,
                 decoration: TextDecoration.none,

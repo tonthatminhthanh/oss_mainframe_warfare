@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
-import 'package:flame_tiled/flame_tiled.dart';
-import 'package:mw_project/actors/placeable_entity.dart';
 import 'package:mw_project/actors/tile.dart';
 
 class FixedTile extends MyTile

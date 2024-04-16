@@ -1,15 +1,3 @@
-<<<<<<< Updated upstream
-class MatchResult
-{
-  int wavesCount;
-  static MatchResult? _globalResult;
-
-  MatchResult({required this.wavesCount});
-
-  static void setResult({required int wavesCount})
-  {
-    _globalResult = MatchResult(wavesCount: wavesCount);
-=======
 import 'package:flutter/cupertino.dart';
 
 class MatchResult
@@ -40,7 +28,6 @@ class MatchResult
       _globalResult = MatchResult();
     }
     _globalResult!.wavesCount.value = wavesCount;
->>>>>>> Stashed changes
   }
 
   static MatchResult getResult()

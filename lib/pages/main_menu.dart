@@ -1,30 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flame/game.dart';
 import 'package:flame_audio/flame_audio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-import 'package:mw_project/mainframe_warfare.dart';
-import 'package:mw_project/pages/leaderboard.dart';
-import 'package:mw_project/ui/widget_overlay/defenders_selection.dart';
-import 'package:mw_project/ui/widget_overlay/game_over.dart';
-import 'package:mw_project/ui/widget_overlay/loading_screen.dart';
-import 'package:mw_project/ui/widget_overlay/pause_button.dart';
-import 'package:mw_project/ui/widget_overlay/pause_menu.dart';
-=======
-import 'package:intl/intl.dart';
-import 'package:timer_builder/timer_builder.dart';
->>>>>>> Stashed changes
-=======
 import 'package:intl/intl.dart';
 import 'package:mw_project/ui/widget_overlay/wave_display.dart';
 import 'package:timer_builder/timer_builder.dart';
->>>>>>> Stashed changes
-
 import '../login_page.dart';
 import '../mainframe_warfare.dart';
 import '../ui/widget_overlay/defenders_selection.dart';
@@ -89,47 +72,6 @@ class MainMenuPage extends StatelessWidget {
                                 GameOverMenu.ID: (BuildContext context, MainframeWarfare gameRef) => GameOverMenu(gameRef: gameRef,),
                                 WaveDisplay.ID: (BuildContext context, MainframeWarfare gameRef) => WaveDisplay(),
                               },
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                          ),
-                      )
-                  );
-                },
-                child: Text("Play!", style: TextStyle(fontFamily: "Silver"),)
-            ),
-            Text("Developed by Tôn Thất Minh Thành. Font made by Poppy Works.", style: TextStyle(fontFamily: "Silver"),),
-            Align(
-              child: Row(
-                children: [
-                  Container(
-                    child: IconButton(
-                      icon: Icon(Icons.exit_to_app),
-                      onPressed: () {
-                        FirebaseAuth.instance.signOut();
-                        GoogleSignIn().signOut();
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => LoginPage(),)
-                        );
-                      },
-                    ),
-                  ),
-                  Container(
-                    child: IconButton(
-                      icon: Icon(Icons.book),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => LeaderboardPage(),)
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              alignment: Alignment.bottomLeft,)
-          ],
-=======
-=======
->>>>>>> Stashed changes
                             ),
                           )
                           );
@@ -162,10 +104,6 @@ class MainMenuPage extends StatelessWidget {
                 ),
               ],
             )
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         ),
       ),
     );

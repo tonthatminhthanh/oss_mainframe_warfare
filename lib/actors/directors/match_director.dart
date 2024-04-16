@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flame/components.dart';
-import 'package:flame/timer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mw_project/actors/computers/cannon.dart';
 import 'package:mw_project/actors/computers/claymore.dart';
@@ -67,11 +66,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
 
   //Phương thức thua game
   void gameOver() {
-<<<<<<< Updated upstream
-    MatchResult.setResult(wavesCount: _currentMainWave);
-=======
     MatchResult.setMainWavesCount(mainWavesCount: _currentMainWave);
->>>>>>> Stashed changes
     game.overlays.add(GameOverMenu.ID);
   }
 

@@ -12,8 +12,8 @@ class WaveDisplay extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ValueListenableBuilder(
             valueListenable: MatchResult.getResult().mainWavesCount,

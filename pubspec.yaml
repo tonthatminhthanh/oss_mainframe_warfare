@@ -48,17 +48,8 @@ dependencies:
   screenshot: ^2.3.0
   share_plus: ^8.0.3
   path_provider: ^2.1.2
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
   timer_builder: ^2.0.0
   intl: ^0.19.0
->>>>>>> Stashed changes
-=======
-  timer_builder: ^2.0.0
-  intl: ^0.19.0
->>>>>>> Stashed changes
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
