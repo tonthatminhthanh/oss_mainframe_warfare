@@ -81,7 +81,8 @@ class _LoginPageState extends State<LoginPage> {
       }
 
       UserScoreSnapshot.setName();
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => MainMenuPage(),)
       );
@@ -99,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
     if(FirebaseAuth.instance.currentUser != null)
       {
         UserScoreSnapshot.setName();
-        SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => MainMenuPage(),)
         );

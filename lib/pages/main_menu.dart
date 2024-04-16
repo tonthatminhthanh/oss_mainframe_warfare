@@ -112,7 +112,7 @@ class MainMenuPage extends StatelessWidget {
   Widget _createTaskbar(BuildContext context)
   {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.075,
+      height: MediaQuery.of(context).size.height * 0.1,
       decoration: BoxDecoration(
         color: Colors.indigo
       ),
@@ -132,7 +132,7 @@ class MainMenuPage extends StatelessWidget {
                       Text(FirebaseAuth.instance.currentUser!.displayName!
                         , style: TextStyle(fontSize: 16, fontFamily: "Silver"),),
                       Image.network(FirebaseAuth.instance.currentUser!.photoURL!
-                                        , width: 32, height: 32,),
+                                        , width: 64, height: 64,),
                                         ],
                                       ),
                     )),
@@ -176,7 +176,7 @@ class MainMenuPage extends StatelessWidget {
                 ),
               ];
             },
-            icon: Icon(Icons.adb, color: Colors.green, size: 24,),
+            icon: Icon(Icons.adb, color: Colors.green, size: 32,),
           ),
           Expanded(
             child: Container(
