@@ -31,6 +31,7 @@ class PauseMenu extends StatelessWidget {
                   if(AudioManager.bgmAudioAdjusted())
                     {
                       FlameAudio.bgm.play('bgm/deepdive.wav', volume: AudioManager.getBgmVolume().value);
+                      AudioManager.setAudioAdjustedStatus(false);
                     }
                   else
                     {

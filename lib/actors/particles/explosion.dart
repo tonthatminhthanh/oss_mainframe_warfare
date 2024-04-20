@@ -60,7 +60,10 @@ class Explosion extends SpriteAnimationComponent with HasGameRef<MainframeWarfar
     );
 
     animation = anim;
-    _hitbox = CircleHitbox(position: Vector2.all(64), radius: _radius, anchor: Anchor.center);
+    _hitbox = CircleHitbox(
+        isSolid: true,
+        position: Vector2.all(64), radius: _radius, anchor: Anchor.center
+    );
 
     add(_hitbox!);
     FlameAudio.play("sfx/explosion_${Random().nextInt(2) + 1}.wav", volume: AudioManager.getSfxVolume().value);

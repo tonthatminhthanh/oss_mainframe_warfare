@@ -48,6 +48,11 @@ class AudioManager
     return _manager!.volumeAdjusted;
   }
 
+  static void setAudioAdjustedStatus(bool value)
+  {
+    _manager!.volumeAdjusted = value;
+  }
+
   static ValueNotifier<double> getSfxVolume()
   {
     return _manager!._sfxVolume;
