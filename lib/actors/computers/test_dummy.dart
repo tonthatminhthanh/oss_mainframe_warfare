@@ -49,7 +49,7 @@ class TestDummy extends PlaceableEntity
   @override
   void onLoad()
   {
-    setHitbox(RectangleHitbox(position: Vector2(16, 0) ,size: Vector2(32, 64)));
+    setHitbox(RectangleHitbox(isSolid: true, position: Vector2(16, 0) ,size: Vector2(32, 64)));
     addHitbox();
     super.onLoad();
   }

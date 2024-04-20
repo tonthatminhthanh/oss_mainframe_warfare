@@ -5,13 +5,15 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame_audio/flame_audio.dart';
+import 'package:mw_project/actors/currencies/ion.dart';
+import 'package:mw_project/actors/viruses/trojan_horse.dart';
 import 'package:mw_project/constants/team.dart';
 import 'package:mw_project/mainframe_warfare.dart';
-import 'package:mw_project/actors/placeable_entity.dart';
-import 'package:mw_project/constants/default_config.dart';
-import 'package:mw_project/objects/audio_manager.dart';
 
-//Kích cỡ nỗ
+import '../placeable_entity.dart';
+import '../../constants/default_config.dart';
+import '../../objects/audio_manager.dart';
+
 enum ExplosionSize {
   small, big
 }
@@ -28,6 +30,7 @@ class Explosion extends SpriteAnimationComponent with HasGameRef<MainframeWarfar
   String _sizeName = "small";
   Team _myTeam;
   double _radius = 0;
+  int enemiesKilled = 0;
 
   Explosion({required Vector2 myPosition, required Team myTeam, required ExplosionSize size})
       : _size = size, _myTeam = myTeam, super(position: myPosition);
@@ -60,8 +63,13 @@ class Explosion extends SpriteAnimationComponent with HasGameRef<MainframeWarfar
     _hitbox = CircleHitbox(position: Vector2.all(64), radius: _radius, anchor: Anchor.center);
 
     add(_hitbox!);
-    FlameAudio.play("sfx/explosion_${Random().nextInt(2) + 1}.wav", volume: AudioManager.getSfxVolune());
+    FlameAudio.play("sfx/explosion_${Random().nextInt(2) + 1}.wav", volume: AudioManager.getSfxVolume().value);
     animationTicker!.onComplete = () {
+      if(enemiesKilled - 8 > 0)
+      {
+        rewardIon(3);
+      }
+      print("Enemies killed: $enemiesKilled");
       removeFromParent();
     };
 
@@ -75,7 +83,6 @@ class Explosion extends SpriteAnimationComponent with HasGameRef<MainframeWarfar
     super.update(dt);
   }
 
-  //Nỗ theo diện tích hình tròn tăng dần
   void explode(double dt)
   {
     double explosionSize = (_size == ExplosionSize.big) ? _bigExplosionSize : _imageSize;
@@ -86,16 +93,32 @@ class Explosion extends SpriteAnimationComponent with HasGameRef<MainframeWarfar
       }
   }
 
-  //Tấn công các entity bị trúng nổ
   void attack()
   {
-    print("exploding...");
     activeCollisions.toList().forEach((element) {
       if(element is PlaceableEntity && element.getTeam() != _myTeam)
         {
           element.getAttacked(EXPLOSION_DAMAGE);
+          if(element is TrojanHorse)
+            {
+              enemiesKilled += 2;
+            }
+          else
+            {
+              enemiesKilled++;
+            }
         }
     });
+  }
+
+  void rewardIon(int max)
+  {
+    print("Rewarding...");
+    final spawnPos = Vector2(this.position.x + Random().nextInt(5) - 5,
+        this.position.y + Random().nextInt(5) - 5 + 64);
+    var ion = Ion(position: spawnPos, value: REWARD_EARNING * max);
+    ion.priority = 5;
+    game.world.add(ion);
   }
 
   @override

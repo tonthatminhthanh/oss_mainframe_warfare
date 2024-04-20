@@ -20,14 +20,14 @@ class WaveDisplay extends StatelessWidget {
             builder: (context, value, child) {
                 return Text(
                 "Main wave: $value ", style: TextStyle(
-    fontFamily: "Silver", fontSize: 24, decoration: TextDecoration.none,
+    fontFamily: "Silver", fontSize: 12, decoration: TextDecoration.none,
     fontWeight: FontWeight.normal, color: Colors.white),);
               },),
             ValueListenableBuilder(
               valueListenable: MatchResult.getResult().wavesCount,
               builder: (context, value, child) {
                 return Text("Wave: ${MatchResult.getResult().wavesCount.value}/20", style: TextStyle(
-                    fontFamily: "Silver", fontSize: 24, decoration: TextDecoration.none,
+                    fontFamily: "Silver", fontSize: 12, decoration: TextDecoration.none,
                     fontWeight: FontWeight.normal, color: Colors.white),);
           },)
         ],

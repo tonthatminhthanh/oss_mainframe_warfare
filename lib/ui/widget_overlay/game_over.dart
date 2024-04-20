@@ -45,7 +45,7 @@ class _GameOverMenuState extends State<GameOverMenu> {
     removeSaveFile();
     widget.gameRef.pauseEngine();
     FlameAudio.play("sfx/game_over.mp3",
-        volume: AudioManager.getSfxVolune());
+        volume: AudioManager.getSfxVolume().value);
     super.initState();
     FlameAudio.bgm.stop();
   }

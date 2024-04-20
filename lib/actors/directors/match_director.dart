@@ -170,6 +170,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     int i = 1;
     for(DefenderGameItem item in _selectedDefenderItems)
       {
+        item.cloneNewEntityForItem();
         item.position = Vector2(i * 128, 0);
         i++;
         item.priority = ITEM_PRIORITY;
@@ -241,7 +242,6 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     var dataFromStorage = await pathRef.getData().catchError((e) {
       print("Save data does not exist!");
       resetMatch();
-      emptySelection();
     });
     Map<String, dynamic>? data;
     if(dataFromStorage != null)

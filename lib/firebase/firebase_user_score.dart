@@ -56,6 +56,19 @@ class UserScoreSnapshot
       }
   }
 
+  static Stream<List<UserScoreSnapshot>> usersFromFirebase({String searchQuery = ""})
+  {
+    var streamUsers = FirebaseFirestore.instance.collection("user_data")
+        .where('full_name',
+        isGreaterThanOrEqualTo: searchQuery,
+        isLessThan: searchQuery + 'z').limit(10).snapshots();
+
+    Stream<List<DocumentSnapshot>> streamList = streamUsers.map(
+            (queryInfo) => queryInfo.docs);
+
+    return streamList.map((listUsers) => listUsers.map((ds) => UserScoreSnapshot.fromSnapshot(ds)).toList());
+  }
+
   static Stream<List<UserScoreSnapshot>> userWavesFromFirebase()
   {
     var streamUsers = FirebaseFirestore.instance.collection("user_data")
@@ -83,10 +96,10 @@ class UserScoreSnapshot
     final uid = FirebaseAuth.instance.currentUser!.uid;
     final fullName = FirebaseAuth.instance.currentUser!.displayName;
 
-    await FirebaseFirestore.instance.collection("user").doc(uid).set(
+    await FirebaseFirestore.instance.collection("user_data").doc(uid).set(
       {
         "full_name": fullName.toString()
-      }
+      }, SetOptions(merge: true)
     );
   }
 
@@ -94,7 +107,7 @@ class UserScoreSnapshot
   async {
     String name = "";
 
-    var doc = await FirebaseFirestore.instance.collection("user").doc(uid).get();
+    var doc = await FirebaseFirestore.instance.collection("user_data").doc(uid).get();
     var data = doc.data()!;
     name = data["full_name"].toString();
     return name;

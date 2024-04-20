@@ -32,7 +32,12 @@ class BasicBot extends PlaceableEntity
   @override
   void onLoad()
   {
-    setHitbox(RectangleHitbox(position: Vector2(16, 10) ,size: Vector2(32, 32)));
+    setHitbox(RectangleHitbox(
+        isSolid: true,
+        collisionType: CollisionType.active,
+        position: Vector2(16, 10),
+        size: Vector2(32, 32)
+    ));
     addHitbox();
     setFlip(true);
     if(getFlipState())
@@ -77,7 +82,7 @@ class BasicBot extends PlaceableEntity
         }
       else if (currentIndex == 8)
         {
-          if(victimHp - _damage <= 0)
+          if(victimHp - _damage <= 0 || victim.getTile().isNotOccupied())
           {
             current = VirusState.running;
           }

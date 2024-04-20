@@ -59,6 +59,7 @@ abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<Ma
         director.decreaseMoney(_occupant!.getPrice());
       }
     }
+    entity.priority = 2;
     gameRef.world.add(entity);
     if(entity.getFlipState())
     {
@@ -70,7 +71,6 @@ abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<Ma
     }
   }
 
-  //Đặt occupant
   void setOccupant(PlaceableEntity entity)
   {
     if(canPlaceOn())
@@ -86,6 +86,7 @@ abstract class MyTile extends PositionComponent with TapCallbacks, HasGameRef<Ma
                 director.decreaseMoney(_occupant!.getPrice());
               }
           }
+        entity.priority = 2;
         gameRef.world.add(entity);
         if(entity.getFlipState())
           {

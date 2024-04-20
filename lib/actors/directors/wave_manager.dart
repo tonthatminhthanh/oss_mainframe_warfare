@@ -58,6 +58,8 @@ class WaveManager
                     (element) => element.value >= 1 && element.value <= score)).toList();
             var randomElement = possibleEntries[Random().nextInt(possibleEntries.length)];
 
+            int tempVal = 0;
+
             switch(randomElement.key)
             {
               case "basic_bot":
@@ -74,9 +76,11 @@ class WaveManager
                 break;
               case "trojan_horse":
                 placeableEntity = TrojanHorse();
+                tempVal = 128;
                 break;
             }
-            placeableEntity.position = Vector2(xCoords[yIndex - 1], (TILE_SIZE * yIndex));
+
+            placeableEntity.position = Vector2(xCoords[yIndex - 1] + tempVal, (TILE_SIZE * yIndex));
             score -= randomElement.value;
             entitiesToSpawn.add(placeableEntity);
             xCoords[yIndex - 1] += Random().nextInt(128) + 32;

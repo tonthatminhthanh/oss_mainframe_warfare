@@ -47,7 +47,7 @@ class PowerSupply extends PlaceableEntity
   FutureOr<void> onLoad()
   {
     productionInterval = Random().nextInt(productionInterval) + 15;
-    setHitbox(RectangleHitbox(position: Vector2(16, 0) ,size: Vector2(32, 64)));
+    setHitbox(RectangleHitbox(isSolid: true, position: Vector2(16, 0) ,size: Vector2(32, 64)));
     addHitbox();
     interval.reset();
     interval.start();
@@ -94,10 +94,10 @@ class PowerSupply extends PlaceableEntity
             {
               if(animationTicker!.currentIndex == 6)
               {
-                FlameAudio.play("sfx/powerup.wav", volume: AudioManager.getSfxVolune());
+                FlameAudio.play("sfx/powerup.wav", volume: AudioManager.getSfxVolume().value);
                 final spawnPos = Vector2(this.position.x + Random().nextInt(5) - 5 + 121,
                     this.position.y + Random().nextInt(5) - 5 + 64);
-                var ion = Ion(position: spawnPos);
+                var ion = Ion(position: spawnPos );
                 ion.priority = 5;
                 game.world.add(ion);
               }

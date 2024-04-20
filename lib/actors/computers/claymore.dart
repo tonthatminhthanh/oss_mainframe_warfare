@@ -29,7 +29,12 @@ class Claymore extends PlaceableEntity
     loadAllAnimation();
     setPosition(Vector2(position.x + 64, position.y + 64));
     print(position);
-    setHitbox(RectangleHitbox(position: Vector2(0,0), size: Vector2.all(64)));
+    setHitbox(RectangleHitbox(
+        isSolid: true,
+        collisionType: CollisionType.passive,
+        position: Vector2(0,0),
+        size: Vector2.all(64)),
+    );
     addHitbox();
     super.onLoad();
   }
@@ -59,7 +64,7 @@ class Claymore extends PlaceableEntity
   }
 
   @override
-  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if(other is PlaceableEntity)
     {
       if(other.getTeam() != getTeam())
@@ -67,6 +72,6 @@ class Claymore extends PlaceableEntity
         attack(other);
       }
     }
-    super.onCollisionStart(intersectionPoints, other);
+    super.onCollision(intersectionPoints, other);
   }
 }

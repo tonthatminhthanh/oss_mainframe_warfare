@@ -8,7 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 import 'package:mw_project/ui/widget_overlay/wave_display.dart';
 import 'package:timer_builder/timer_builder.dart';
-import '../login_page.dart';
+import 'login_page.dart';
 import '../mainframe_warfare.dart';
 import '../ui/widget_overlay/defenders_selection.dart';
 import '../ui/widget_overlay/game_over.dart';
@@ -34,17 +34,16 @@ class MainMenuPage extends StatelessWidget {
 
   Widget _createDesktop(BuildContext context)
   {
-    return Expanded(
-      child: Container(
+    return Container(
         width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * 0.9,
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage("assets/images/background/wallpaper.jpg"),
               fit: BoxFit.fill
           ),
         ),
-        child: Expanded(
-            child: Column(
+        child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -60,7 +59,7 @@ class MainMenuPage extends StatelessWidget {
                           Navigator.of(context)
                               .pushReplacement(MaterialPageRoute(
                             builder: (context) => GameWidget(
-                              game: kDebugMode ? MainframeWarfare() : game,
+                              game: game,
                               initialActiveOverlays: [
                                 PauseButton.ID
                               ],
@@ -104,9 +103,7 @@ class MainMenuPage extends StatelessWidget {
                 ),
               ],
             )
-        ),
-      ),
-    );
+      );
   }
 
   Widget _createTaskbar(BuildContext context)

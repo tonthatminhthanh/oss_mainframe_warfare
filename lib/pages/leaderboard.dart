@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mw_project/firebase/firebase_user_score.dart';
 import 'package:mw_project/pages/main_menu.dart';
+import 'package:mw_project/pages/search.dart';
 
 class LeaderboardPage extends StatefulWidget {
   const LeaderboardPage({super.key});
@@ -115,6 +116,12 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                           },
                           child: Text("Kills")
                       ) : Text("Kills"),
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage(),));
+                          },
+                          child: Text("Search")
+                      )
                     ],
                   )
                 ],
@@ -139,31 +146,10 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
   List<DataRow> _createRows(List<UserScoreSnapshot> list)
   {
     return List.generate(list.length, (index) {
-      final uid = list.elementAt(index).getUserScore().uid;
-      String userName = "";
-      Widget userNameText = FutureBuilder(future: list.elementAt(index).getName(uid), builder: (context, snapshot) {
-        if(!snapshot.hasData)
-          {
-            if(snapshot.hasError)
-              {
-                userName = "CANNOT_FIND_USERNAME";
-              }
-            else
-              {
-                userName = "Loading name...";
-              }
-          }
-        else
-          {
-            userName = snapshot.data!;
-          }
-        return Text(userName.toString());
-      },) ;
-      print(list.elementAt(index).getName(uid));
       return DataRow(
           cells: [
             DataCell(Text((index + 1).toString())),
-            DataCell(userNameText),
+            DataCell(Text(list.elementAt(index).getUserScore().name)),
             DataCell(
               _isWaveStat
                   ? Text(list.elementAt(index).getUserScore().maxWave.toString())

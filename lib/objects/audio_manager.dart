@@ -1,5 +1,6 @@
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AudioManager
 {
@@ -8,30 +9,53 @@ class AudioManager
   late ValueNotifier<double> _sfxVolume;
   late ValueNotifier<double> _bgmVolume;
 
+  bool volumeAdjusted = false;
+
   AudioPool? _rifleSfx;
   AudioPool? _shotgunSfx;
   AudioPool? _meleeSfx;
   AudioPool? _normalHitSfx, _lightArmorHitSfx, _heavyArmorHitSfx;
 
-  AudioManager({required double sfxVolune, required double bgmVolume})
+  AudioManager({required double sfxVolume, required double bgmVolume})
   {
-    _sfxVolume = ValueNotifier(sfxVolune);
+    _sfxVolume = ValueNotifier(sfxVolume);
     _bgmVolume = ValueNotifier(bgmVolume);
   }
   
-  static void createManager({required double sfxVolune, required double bgmVolume})
+  static void createManager({required double sfxVolume, required double bgmVolume})
   {
-    _manager = AudioManager(sfxVolune: sfxVolune * 0.5, bgmVolume: bgmVolume);
-  }
-  
-  static double getSfxVolune()
-  {
-    return _manager!._sfxVolume.value;
+    _manager = AudioManager(sfxVolume: sfxVolume, bgmVolume: bgmVolume);
+    _manager!.volumeAdjusted = false;
   }
 
-  static double getBgmVolume()
+  static void setSfxVolume(double volume) async
   {
-    return _manager!._bgmVolume.value;
+    _manager!._sfxVolume.value = volume;
+    final _preferences = await SharedPreferences.getInstance();
+    _preferences.setDouble("sfx", _manager!._sfxVolume.value);
+  }
+
+  static Future<void> setBgmVolume(double volume)
+  async {
+    _manager!._bgmVolume.value = volume;
+    _manager!.volumeAdjusted = true;
+    final _preferences = await SharedPreferences.getInstance();
+    _preferences.setDouble("bgm", _manager!._bgmVolume.value);
+  }
+
+  static bool bgmAudioAdjusted()
+  {
+    return _manager!.volumeAdjusted;
+  }
+
+  static ValueNotifier<double> getSfxVolume()
+  {
+    return _manager!._sfxVolume;
+  }
+
+  static ValueNotifier<double> getBgmVolume()
+  {
+    return _manager!._bgmVolume;
   }
 
   static void playRifleSfx() async

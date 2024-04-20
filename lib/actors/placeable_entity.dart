@@ -76,7 +76,7 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
             game.getLevel().reduceAttackersCount();
             UserScoreSnapshot.addKill();
             FlameAudio.play("sfx/death.wav",
-                volume: AudioManager.getSfxVolune() * 0.5);
+                volume: AudioManager.getSfxVolume().value * 0.5);
           }
         removeFromParent();
       }
@@ -239,6 +239,11 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
   void setTile(MyTile tile)
   {
     _tile = tile;
+  }
+
+  MyTile getTile()
+  {
+    return _tile!;
   }
 
   //Xoá khỏi tile

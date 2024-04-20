@@ -16,7 +16,7 @@ class Cannon extends PlaceableEntity
 {
   double _stepTime = 0.05;
   bool _canFire = true;
-  Timer _reloadTimer = Timer(35, autoStart: false, repeat: false);
+  Timer _reloadTimer = Timer(50, autoStart: false, repeat: false);
 
   @protected
   late SpriteAnimation aimingAnimation;
@@ -65,7 +65,7 @@ class Cannon extends PlaceableEntity
   @override
   void onLoad()
   {
-    setHitbox(RectangleHitbox(position: Vector2(16, 0) ,size: Vector2(32, 64)));
+    setHitbox(RectangleHitbox(isSolid: true, position: Vector2(16, 0) ,size: Vector2(32, 64)));
     addHitbox();
     super.onLoad();
   }

@@ -82,6 +82,7 @@ class Level extends World with HasGameRef<MainframeWarfare>
                   size: Vector2(obj.width,obj.height),
                   position: Vector2(obj.x, obj.y),
                 );
+                fixedTile.priority = 1;
                 add(fixedTile);
                 _tiles.add(fixedTile);
                 break;

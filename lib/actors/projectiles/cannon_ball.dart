@@ -17,7 +17,9 @@ class CannonBall extends Projectile
   @override
   void onLoad()
   {
-    setHitbox(RectangleHitbox(size: Vector2.all(64)));
+    setHitbox(RectangleHitbox(
+        collisionType: CollisionType.passive,
+        size: Vector2.all(64)));
     addHitbox();
     super.onLoad();
   }

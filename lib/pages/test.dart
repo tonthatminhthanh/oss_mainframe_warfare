@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:mw_project/login_page.dart';
+import 'package:mw_project/pages/login_page.dart';
 
 class TestPage extends StatefulWidget {
   const TestPage({super.key});

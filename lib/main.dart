@@ -5,7 +5,7 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mw_project/firebase/establish_connection.dart';
-import 'package:mw_project/login_page.dart';
+import 'package:mw_project/pages/login_page.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 import 'package:mw_project/objects/audio_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,7 +25,7 @@ Future<bool> _grabPrefs() async
     _preferences!.setDouble("bgm", 1.0);
   }
 
-  AudioManager.createManager(sfxVolune: _preferences!.getDouble("sfx")!,
+  AudioManager.createManager(sfxVolume: _preferences!.getDouble("sfx")!,
       bgmVolume: _preferences!.getDouble("bgm")!);
   return true;
 }
@@ -65,7 +65,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   Flame.device.setLandscape();
-  MainframeWarfare game = MainframeWarfare();
   _grabPrefs();
   runApp(MainframeWarfareApp());
 }

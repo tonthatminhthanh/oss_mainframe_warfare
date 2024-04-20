@@ -1,8 +1,6 @@
 import 'dart:math';
 
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame_audio/flame_audio.dart';
 import 'package:mw_project/actors/computers/claymore.dart';
 import 'package:mw_project/actors/computers/dynamite.dart';
 import 'package:mw_project/actors/viruses/basic_bot.dart';
@@ -10,8 +8,6 @@ import 'package:mw_project/constants/basic_virus_enum.dart';
 import 'package:mw_project/constants/default_config.dart';
 
 import '../../constants/team.dart';
-import '../../firebase/firebase_user_score.dart';
-import '../../objects/audio_manager.dart';
 import '../placeable_entity.dart';
 
 class TrojanHorse extends BasicBot
@@ -19,7 +15,7 @@ class TrojanHorse extends BasicBot
   late SpriteAnimation _movingAnimation;
   TrojanHorse() : super(
       characterName: "trojan_horse",
-      scaleHeight: 2.0, scaleWidth: 2.0, hp: ARMORED_BOT_HEALTH);
+      scaleHeight: 2.0, scaleWidth: 2.0, moveSpeed: BASIC_BOT_SPEED, hp: ARMORED_BOT_HEALTH);
 
   @override
   PlaceableEntity clone() {
@@ -30,7 +26,6 @@ class TrojanHorse extends BasicBot
   void onLoad()
   {
     super.onLoad();
-    debugMode = true;
     getHitbox()!.position = Vector2(43, 25);
     getHitbox()!.size = Vector2(45, 36);
     setFlip(true);
@@ -52,9 +47,9 @@ class TrojanHorse extends BasicBot
   @override
   void checkHealth()
   {
-    if(getHp() >= 10 && getHp() <= 15)
+    if(getHp() >= 10 && getHp() <= 50)
       {
-        for(int i = 1; i <= 5;i++)
+        for(int i = 1; i <= 6;i++)
           {
             BasicBot bot = BasicBot();
             bot.position = Vector2((position.x + 256) + i * (Random().nextInt(20) + 10), position.y);

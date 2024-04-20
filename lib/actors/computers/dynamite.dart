@@ -27,7 +27,7 @@ class Dynamite extends PlaceableEntity
     loadAllAnimation();
     _explodeTimer = Timer(1, repeat: false);
     _explodeTimer.start();
-    setHitbox(RectangleHitbox(position: Vector2(0,0), size: Vector2.all(64)));
+    setHitbox(RectangleHitbox(isSolid: true, position: Vector2(0,0), size: Vector2.all(64)));
     addHitbox();
     super.onLoad();
   }
