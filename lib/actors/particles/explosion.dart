@@ -68,12 +68,12 @@ class Explosion extends SpriteAnimationComponent with HasGameRef<MainframeWarfar
     add(_hitbox!);
     FlameAudio.play("sfx/explosion_${Random().nextInt(2) + 1}.wav", volume: AudioManager.getSfxVolume().value);
     animationTicker!.onComplete = () {
-      if(enemiesKilled - 8 > 0)
-      {
-        rewardIon(3);
-      }
       print("Enemies killed: $enemiesKilled");
       removeFromParent();
+      if(enemiesKilled - 8 > 0)
+      {
+        //rewardIon(2);
+      }
     };
 
     super.onLoad();
