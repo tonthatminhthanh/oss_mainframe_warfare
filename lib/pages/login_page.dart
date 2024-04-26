@@ -76,7 +76,8 @@ class _LoginPageState extends State<LoginPage> {
             uid: authResult.user!.uid,
               name: authResult.user!.displayName!,
               kills: 0,
-              maxWave: 0
+              maxWave: 0,
+            achievements: []
           )
         );
       }

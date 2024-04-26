@@ -4,20 +4,16 @@ import 'dart:io';
 import 'package:flame/camera.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
-import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/geometry.dart';
-import 'package:flame/image_composition.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mw_project/actors/computers/power_supply.dart';
 import 'package:mw_project/actors/directors/match_director.dart';
 import 'package:mw_project/constants/default_config.dart';
 import 'package:mw_project/constants/team.dart';
 import 'package:mw_project/levels/level.dart';
 import 'package:mw_project/objects/audio_manager.dart';
-import 'package:path/path.dart';
+import 'package:mw_project/ui/hud/achievement_display.dart';
 import 'actors/placeable_entity.dart';
 
 class MainframeWarfare extends FlameGame with HasCollisionDetection
@@ -26,6 +22,8 @@ class MainframeWarfare extends FlameGame with HasCollisionDetection
   double screenHeight = SCREEN_HEIGHT as double;
   late CameraComponent cam;
   late MatchDirector _director;
+  AchievementDisplay? _temp;
+  bool _justAdded = false;
   
   MatchDirector getDirector()
   {
@@ -95,5 +93,15 @@ class MainframeWarfare extends FlameGame with HasCollisionDetection
   Level getLevel()
   {
     return world as Level;
+  }
+
+  void displayAchievement(String id)
+  {
+    if(_temp != null)
+      {
+        _temp!.removeAchievementDisplay();
+      }
+    _temp = AchievementDisplay(id: id, priority: 15);
+    getLevel().add(_temp!);
   }
 }

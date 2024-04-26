@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mw_project/mainframe_warfare.dart';
 import 'package:mw_project/objects/user_score.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -91,6 +92,50 @@ class UserScoreSnapshot
     return streamList.map((listUsers) => listUsers.map((ds) => UserScoreSnapshot.fromSnapshot(ds)).toList());
   }
 
+  static void addAchievement(String achievementId) async
+  {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentSnapshot ds = await FirebaseFirestore
+        .instance.collection("user_data").doc(uid).get();
+
+    if(ds.exists)
+      {
+        ds.reference.update({"achievements": FieldValue.arrayUnion([achievementId])});
+      }
+  }
+
+  static Future<void> addAchievementIfPossible(MainframeWarfare gameRef, String achievementId) async
+  {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentSnapshot ds = await FirebaseFirestore
+        .instance.collection("user_data").doc(uid).get();
+
+    if(ds.exists)
+      {
+        var dsData = ds.data()! as Map<String, dynamic>;
+        List<dynamic> achievements = dsData["achievements"];
+
+        if(!achievements.contains(achievementId))
+          {
+            addAchievement(achievementId);
+            gameRef.displayAchievement(achievementId);
+          }
+      }
+  }
+
+  static Stream<UserScore> datasFromFirebase()
+  {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    
+    var streamDs = FirebaseFirestore.instance.collection("user_data")
+        .doc(uid).snapshots();
+
+
+    return streamDs.map((ds) => UserScoreSnapshot.fromSnapshot(ds).getUserScore());
+  }
+  
   static void setName() async
   {
     final uid = FirebaseAuth.instance.currentUser!.uid;

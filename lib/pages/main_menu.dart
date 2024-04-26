@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
+import 'package:mw_project/pages/achievements_page.dart';
+import 'package:mw_project/pages/settings_page.dart';
 import 'package:mw_project/ui/widget_overlay/wave_display.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'login_page.dart';
@@ -101,6 +103,23 @@ class MainMenuPage extends StatelessWidget {
                           fontWeight: FontWeight.normal, color: Colors.white),),)
                   ],
                 ),
+                Stack(
+                  children: [
+                    IconButton(icon: Icon(Icons.wallet_giftcard_rounded, color: Colors.yellowAccent, size: 64,),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushReplacement(MaterialPageRoute(builder: (context) => AchievementsPage(),)
+                        );
+                      },
+                    ),
+                    Positioned(
+                      left: 4,
+                      bottom: -5,
+                      child: Text("Achievements", style: TextStyle(
+                          fontFamily: "Silver", fontSize: 16, decoration: TextDecoration.none,
+                          fontWeight: FontWeight.normal, color: Colors.white),),)
+                  ],
+                ),
               ],
             )
       );
@@ -174,6 +193,14 @@ class MainMenuPage extends StatelessWidget {
               ];
             },
             icon: Icon(Icons.adb, color: Colors.green, size: 32,),
+          ),
+          IconButton(
+            icon: Icon(Icons.settings, size: 32,),
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => SettingsPage(),)
+              );
+            },
           ),
           Expanded(
             child: Container(

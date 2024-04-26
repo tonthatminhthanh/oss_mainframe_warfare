@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:mw_project/actors/fixed_tile.dart';
 import 'package:mw_project/actors/tile.dart';
+import 'package:mw_project/firebase/firebase_user_score.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 import 'package:mw_project/ui/hud/money_display.dart';
 
@@ -16,6 +17,7 @@ class Level extends World with HasGameRef<MainframeWarfare>
   List<MyTile> _tiles = [];
   int _attackersCountInCurrentWave = 0;
   int _attackersCount = 0;
+  int _tempCountForAchievement = 0;
 
   Level({required String levelName})
   {
@@ -46,6 +48,15 @@ class Level extends World with HasGameRef<MainframeWarfare>
   void reduceAttackersCount()
   {
     _attackersCount--;
+    _tempCountForAchievement++;
+    if(_tempCountForAchievement >= 10)
+      {
+        UserScoreSnapshot.addAchievementIfPossible(gameRef, "ten_down");
+      }
+    if(_tempCountForAchievement >= 100)
+      {
+        UserScoreSnapshot.addAchievementIfPossible(gameRef, "a_hundred_down");
+      }
     if(canCallNewWave())
       {
         print("calling new wave!!");

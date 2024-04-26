@@ -3,6 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:mw_project/actors/tile.dart';
+import 'package:mw_project/actors/viruses/trojan_horse.dart';
 import 'package:mw_project/firebase/firebase_user_score.dart';
 
 import '../constants/team.dart';
@@ -75,6 +76,11 @@ abstract class PlaceableEntity extends Entity with CollisionCallbacks, TapCallba
           {
             game.getLevel().reduceAttackersCount();
             UserScoreSnapshot.addKill();
+            UserScoreSnapshot.addAchievementIfPossible(gameRef, "first_blood");
+            if(this is TrojanHorse)
+              {
+                UserScoreSnapshot.addAchievementIfPossible(gameRef, "not_today");
+              }
             FlameAudio.play("sfx/death.wav",
                 volume: AudioManager.getSfxVolume().value * 0.5);
           }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mw_project/firebase/firebase_user_score.dart';
 import 'package:mw_project/pages/main_menu.dart';
 import 'package:mw_project/pages/search.dart';
+import 'package:mw_project/pages/windows_titlebar.dart';
 
 class LeaderboardPage extends StatefulWidget {
   const LeaderboardPage({super.key});
@@ -17,32 +18,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: Row(
-          children: [
-            Icon(Icons.book, color: Colors.white,),
-            Text("Leaderboard", style: TextStyle(fontSize: 16),)
-          ],
-        ),
-        actions: [
-          ElevatedButton(
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.red),
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero
-              ))
-            ),
-              onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => MainMenuPage(),)
-                );
-              },
-              child: Icon(Icons.close, color: Colors.white,)
-          )
-        ],
-        automaticallyImplyLeading: false,
-      ),
+      appBar: returnTitleBar(context: context, title: "Leaderboard"),
       body: StreamBuilder(
         stream: _isWaveStat == true
             ? UserScoreSnapshot.userWavesFromFirebase()
@@ -72,7 +48,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
             }
           else
             {
-              List<UserScoreSnapshot> list = snapshot.data! as List<UserScoreSnapshot>;
+              List<UserScoreSnapshot> list = snapshot.data!;
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

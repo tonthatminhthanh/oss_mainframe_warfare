@@ -50,7 +50,10 @@ class _SearchPageState extends State<SearchPage> {
         else
         {
           List<UserScoreSnapshot> list = snapshot.data! as List<UserScoreSnapshot>;
-          list.removeWhere((element) => !element.getUserScore().name.toLowerCase().contains(txtSearch.text.toLowerCase()));
+          list.removeWhere(
+                  (element)
+              => !element.getUserScore().name.toLowerCase().contains(txtSearch.text.toLowerCase())
+          );
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
