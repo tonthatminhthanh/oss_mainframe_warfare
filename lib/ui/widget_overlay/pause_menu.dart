@@ -16,6 +16,7 @@ class PauseMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueAccent.withOpacity(0.5),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

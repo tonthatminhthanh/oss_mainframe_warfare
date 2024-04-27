@@ -33,6 +33,7 @@ import '../tile.dart';
 
 class MatchDirector extends Component with HasGameRef<MainframeWarfare>
 {
+  static const int _maxMoney = 9900;
   bool _isStartingUp = true;
   int _currentMainWave = 0;
   int _currentWave = 0;
@@ -57,7 +58,10 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     switch(currency.getTeam())
     {
       case Team.defender:
-        _defenderMoney.value += money;
+        if(_defenderMoney.value < _maxMoney)
+          {
+            _defenderMoney.value += money;
+          }
         break;
       case Team.attacker:
         // none for now
@@ -214,6 +218,10 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
 
   @override
   void update(double dt) {
+    if(_defenderMoney.value >= _maxMoney)
+      {
+        _defenderMoney.value = _maxMoney;
+      }
     if(_spawnInterval != null)
       {
         _spawnInterval!.update(dt);

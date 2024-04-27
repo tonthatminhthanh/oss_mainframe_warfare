@@ -16,7 +16,7 @@ class _VolumeSliderState extends State<VolumeSlider> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("SFX Volume",
+            Text("Sound effects volume",
                 style: TextStyle(
                     fontWeight: FontWeight.normal,
                     decoration: TextDecoration.none,
@@ -31,7 +31,7 @@ class _VolumeSliderState extends State<VolumeSlider> {
                   },
               ),
             ),
-            Text("BGM Volume",
+            Text("Background music volume",
                 style: TextStyle(
                     fontWeight: FontWeight.normal,
                     decoration: TextDecoration.none,
