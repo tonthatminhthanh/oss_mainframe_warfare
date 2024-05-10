@@ -16,7 +16,7 @@ class ShareResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        _createResultImage(),
+        Expanded(child: _createResultImage()),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
