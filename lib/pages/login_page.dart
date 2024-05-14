@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
       UserScoreSnapshot.setName();
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-      Navigator.of(context).push(MaterialPageRoute(
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => MainMenuPage(),)
       );
     }

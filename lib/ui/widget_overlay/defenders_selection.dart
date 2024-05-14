@@ -117,7 +117,7 @@ class _DefenderSelectionState extends State<DefenderSelection> {
                     color: Colors.black,
                     width: 1.0
                   ),
-                  color: Colors.white.withOpacity(0.25)
+                  color: Colors.white
                 ),
                 child: ValueListenableBuilder(
                   valueListenable: DefenderDescription.getEntity(),

@@ -45,13 +45,10 @@ class MainMenuPage extends StatelessWidget {
               fit: BoxFit.fill
           ),
         ),
-        child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  height: 10,
-                ),
                 Stack(
                   children: [
                     IconButton(icon: Icon(Icons.play_circle, color: Colors.green, size: 64,),
@@ -86,6 +83,7 @@ class MainMenuPage extends StatelessWidget {
                         fontWeight: FontWeight.normal, color: Colors.white),),)
                   ],
                 ),
+                Container(width: 25,),
                 Stack(
                   children: [
                     IconButton(icon: Icon(Icons.book, color: Colors.blueAccent, size: 64,),
@@ -103,6 +101,7 @@ class MainMenuPage extends StatelessWidget {
                           fontWeight: FontWeight.normal, color: Colors.white),),)
                   ],
                 ),
+                Container(width: 25,),
                 Stack(
                   children: [
                     IconButton(icon: Icon(Icons.wallet_giftcard_rounded, color: Colors.yellowAccent, size: 64,),
