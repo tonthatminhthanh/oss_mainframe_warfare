@@ -12,6 +12,10 @@ if (localPropertiesFile.exists()) {
     }
 }
 
+dependencies {
+    implementation 'com.android.support:multidex:2.0.3'
+}
+
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
     flutterVersionCode = '1'

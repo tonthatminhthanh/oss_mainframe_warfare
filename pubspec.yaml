@@ -45,7 +45,7 @@ dependencies:
   google_sign_in: ^6.2.1
   http: ^1.2.0
   shared_preferences: ^2.2.2
-  screenshot: ^2.3.0
+  screenshot: ^3.0.0
   share_plus: ^8.0.3
   path_provider: ^2.1.2
   timer_builder: ^2.0.0

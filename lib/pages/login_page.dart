@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mw_project/firebase/firebase_user_score.dart';
 import 'package:mw_project/objects/user_score.dart';
 import 'package:mw_project/pages/main_menu.dart';
+import 'dart:io';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -97,9 +98,11 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
   }
 
-  void autoLogIn()
-  {
-    if(FirebaseAuth.instance.currentUser != null)
+  Future<void> autoLogIn()
+  async {
+    bool canConnect = await checkNetwork();
+
+    if(FirebaseAuth.instance.currentUser != null && canConnect)
       {
         UserScoreSnapshot.setName();
         SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
@@ -107,5 +110,18 @@ class _LoginPageState extends State<LoginPage> {
             MaterialPageRoute(builder: (context) => MainMenuPage(),)
         );
       }
+  }
+
+  Future<bool> checkNetwork() async {
+    bool isConnected = false;
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        isConnected = true;
+      }
+    } on SocketException catch (_) {
+      isConnected = false;
+    }
+    return isConnected;
   }
 }
