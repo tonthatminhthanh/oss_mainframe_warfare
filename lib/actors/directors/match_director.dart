@@ -12,7 +12,7 @@ import 'package:mw_project/actors/computers/hunter.dart';
 import 'package:mw_project/actors/computers/laser_man.dart';
 import 'package:mw_project/actors/computers/power_supply.dart';
 import 'package:mw_project/actors/computers/rifleman.dart';
-import 'package:mw_project/actors/computers/test_dummy.dart';
+import 'package:mw_project/actors/computers/dummy.dart';
 import 'package:mw_project/actors/currencies/currency.dart';
 import 'package:mw_project/actors/directors/wave_manager.dart';
 import 'package:mw_project/actors/placeable_entity.dart';
@@ -289,7 +289,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
           entity = Hunter();
           break;
         case "test_dummy":
-          entity = TestDummy();
+          entity = Dummy();
           break;
         case "laser_man":
           entity = LaserMan();

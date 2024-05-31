@@ -9,20 +9,20 @@ enum DummyState {
   normal, damaged, nearDeath
 }
 
-class TestDummy extends PlaceableEntity
+class Dummy extends PlaceableEntity
 {
   late SpriteAnimation _normalAnimation;
   late SpriteAnimation _damagedAnimation;
   late SpriteAnimation _nearDeathAnimation;
 
-  TestDummy({Team myTeam = Team.defender, double rechargeTime = SLOW_RECHARGE})
+  Dummy({Team myTeam = Team.defender, double rechargeTime = SLOW_RECHARGE})
       : super(characterName: "test_dummy",
       hp: TEST_DUMMY_HP, myTeam: myTeam, rechargeTime: rechargeTime, cost: 50);
 
   @override
   PlaceableEntity clone() {
     // TODO: implement clone
-    return TestDummy();
+    return Dummy();
   }
 
   @override
