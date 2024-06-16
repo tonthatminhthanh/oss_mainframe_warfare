@@ -1,15 +1,8 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flame/flame.dart';
-import 'package:flame/game.dart';
-import 'package:flame_audio/flame_audio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:mw_project/firebase/establish_connection.dart';
-import 'package:mw_project/pages/login_page.dart';
-import 'package:mw_project/mainframe_warfare.dart';
 import 'package:mw_project/objects/audio_manager.dart';
+import 'package:mw_project/pages/main_menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'firebase_options.dart';
 
 SharedPreferences? _preferences;
 
@@ -48,7 +41,7 @@ class _MainframeWarfareAppState extends State<MainframeWarfareApp> {
         fontFamily: 'Silver'
       ),
       home: Scaffold(
-        body: FirebaseConnectionPage(builder: (context) => LoginPage(),),
+        body: MainMenuPage(),
       ),
     );
   }
@@ -61,9 +54,6 @@ class _MainframeWarfareAppState extends State<MainframeWarfareApp> {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   Flame.device.setLandscape();
   _grabPrefs();
   runApp(MainframeWarfareApp());

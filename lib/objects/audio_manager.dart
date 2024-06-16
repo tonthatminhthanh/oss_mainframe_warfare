@@ -32,7 +32,7 @@ class AudioManager
   {
     _manager!._sfxVolume.value = volume;
     final _preferences = await SharedPreferences.getInstance();
-    _preferences.setDouble("sfx", _manager!._sfxVolume.value);
+    _preferences.setDouble("sfx", _manager!._sfxVolume.value * 0.8);
   }
 
   static Future<void> setBgmVolume(double volume)
@@ -40,7 +40,7 @@ class AudioManager
     _manager!._bgmVolume.value = volume;
     _manager!.volumeAdjusted = true;
     final _preferences = await SharedPreferences.getInstance();
-    _preferences.setDouble("bgm", _manager!._bgmVolume.value);
+    _preferences.setDouble("bgm", _manager!._bgmVolume.value * 0.8);
   }
 
   static bool bgmAudioAdjusted()

@@ -71,7 +71,7 @@ class Currency extends SpriteComponent with TapCallbacks, HasGameRef<MainframeWa
 
   @override
   void onTapDown(TapDownEvent event) {
-    FlameAudio.play("sfx/pickup_${Random().nextInt(4) + 1}.wav", volume: AudioManager.getSfxVolume().value);
+    //dFlameAudio.play("sfx/pickup_${Random().nextInt(4) + 1}.wav", volume: AudioManager.getSfxVolume().value);
     gameRef.getDirector().addMoney(this, _value);
     removeFromParent();
     super.onTapDown(event);

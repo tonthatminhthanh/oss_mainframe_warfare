@@ -94,7 +94,7 @@ class PowerSupply extends PlaceableEntity
             {
               if(animationTicker!.currentIndex == 6)
               {
-                FlameAudio.play("sfx/powerup.wav", volume: AudioManager.getSfxVolume().value);
+                //FlameAudio.play("sfx/powerup.wav", volume: AudioManager.getSfxVolume().value);
                 final spawnPos = Vector2(this.position.x + Random().nextInt(5) - 5 + 121,
                     this.position.y + Random().nextInt(5) - 5 + 64);
                 var ion = Ion(position: spawnPos );

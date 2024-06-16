@@ -6,18 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
-import 'package:mw_project/pages/achievements_page.dart';
 import 'package:mw_project/pages/settings_page.dart';
 import 'package:mw_project/ui/widget_overlay/wave_display.dart';
 import 'package:timer_builder/timer_builder.dart';
-import 'login_page.dart';
 import '../mainframe_warfare.dart';
 import '../ui/widget_overlay/defenders_selection.dart';
 import '../ui/widget_overlay/game_over.dart';
 import '../ui/widget_overlay/loading_screen.dart';
 import '../ui/widget_overlay/pause_button.dart';
 import '../ui/widget_overlay/pause_menu.dart';
-import 'leaderboard.dart';
 
 class MainMenuPage extends StatelessWidget {
   const MainMenuPage({super.key});
@@ -51,7 +48,7 @@ class MainMenuPage extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    IconButton(icon: Icon(Icons.play_circle, color: Colors.green, size: 64,),
+                    IconButton(icon: Icon(Icons.play_circle, color: Colors.green, size: 128,),
                         onPressed: () {
                           MainframeWarfare game = MainframeWarfare();
                           FlameAudio.bgm.initialize();
@@ -79,44 +76,8 @@ class MainMenuPage extends StatelessWidget {
                       left: 4,
                       bottom: -5,
                       child: Text("Play", style: TextStyle(
-                        fontFamily: "Silver", fontSize: 16, decoration: TextDecoration.none,
+                        fontFamily: "Silver", fontSize: 24, decoration: TextDecoration.none,
                         fontWeight: FontWeight.normal, color: Colors.white),),)
-                  ],
-                ),
-                Container(width: 25,),
-                Stack(
-                  children: [
-                    IconButton(icon: Icon(Icons.book, color: Colors.blueAccent, size: 64,),
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushReplacement(MaterialPageRoute(builder: (context) => LeaderboardPage(),)
-                        );
-                      },
-                    ),
-                    Positioned(
-                      left: 4,
-                      bottom: -5,
-                      child: Text("Leaderboard", style: TextStyle(
-                          fontFamily: "Silver", fontSize: 16, decoration: TextDecoration.none,
-                          fontWeight: FontWeight.normal, color: Colors.white),),)
-                  ],
-                ),
-                Container(width: 25,),
-                Stack(
-                  children: [
-                    IconButton(icon: Icon(Icons.wallet_giftcard_rounded, color: Colors.yellowAccent, size: 64,),
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushReplacement(MaterialPageRoute(builder: (context) => AchievementsPage(),)
-                        );
-                      },
-                    ),
-                    Positioned(
-                      left: 4,
-                      bottom: -5,
-                      child: Text("Achievements", style: TextStyle(
-                          fontFamily: "Silver", fontSize: 16, decoration: TextDecoration.none,
-                          fontWeight: FontWeight.normal, color: Colors.white),),)
                   ],
                 ),
               ],
@@ -135,66 +96,8 @@ class MainMenuPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          PopupMenuButton(itemBuilder: (context) {
-              return [
-                PopupMenuItem(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.indigo
-                      ),
-                      child: Row(
-                                        children: [
-                      Text(FirebaseAuth.instance.currentUser!.displayName!
-                        , style: TextStyle(fontSize: 16, fontFamily: "Silver"),),
-                      Image.network(FirebaseAuth.instance.currentUser!.photoURL!
-                                        , width: 64, height: 64,),
-                                        ],
-                                      ),
-                    )),
-                PopupMenuItem(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(Icons.logout_outlined, color: Colors.deepPurpleAccent, size: 16,),
-                            Text("Log out"
-                              , style: TextStyle(fontSize: 16, fontFamily: "Silver", color: Colors.black),),
-                          ],
-                        ),
-                      ),
-                  onTap: () {
-                    FirebaseAuth.instance.signOut();
-                    GoogleSignIn().signOut();
-                    Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => LoginPage(),)
-                    );
-                  },
-                ),
-                PopupMenuItem(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.close, color: Colors.red, size: 16,),
-                        Text("Shut down"
-                          , style: TextStyle(fontSize: 16, fontFamily: "Silver", color: Colors.black),),
-                      ],
-                    ),
-                  ),
-                  onTap: () {
-                    SystemNavigator.pop();
-                  },
-                ),
-              ];
-            },
-            icon: Icon(Icons.adb, color: Colors.green, size: 32,),
-          ),
           IconButton(
-            icon: Icon(Icons.settings, size: 32,),
+            icon: Icon(Icons.settings, size: 48,),
             onPressed: () {
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => SettingsPage(),)

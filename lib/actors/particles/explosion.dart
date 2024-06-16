@@ -1,14 +1,11 @@
-import 'dart:async';
 import 'dart:math';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/extensions.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:mw_project/actors/currencies/ion.dart';
 import 'package:mw_project/actors/viruses/trojan_horse.dart';
 import 'package:mw_project/constants/team.dart';
-import 'package:mw_project/firebase/firebase_user_score.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 
 import '../placeable_entity.dart';
@@ -67,14 +64,10 @@ class Explosion extends SpriteAnimationComponent with HasGameRef<MainframeWarfar
     );
 
     add(_hitbox!);
-    FlameAudio.play("sfx/explosion_${Random().nextInt(2) + 1}.wav", volume: AudioManager.getSfxVolume().value);
+    //FlameAudio.play("sfx/explosion_${Random().nextInt(2) + 1}.wav", volume: AudioManager.getSfxVolume().value);
     animationTicker!.onComplete = () {
       print("Enemies killed: $enemiesKilled");
       removeFromParent();
-      if(enemiesKilled - 10 >= 0)
-      {
-        UserScoreSnapshot.addAchievementIfPossible(gameRef, "perfect_explosion");
-      }
     };
 
     super.onLoad();

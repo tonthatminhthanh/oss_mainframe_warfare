@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -18,13 +19,13 @@ import 'package:mw_project/actors/directors/wave_manager.dart';
 import 'package:mw_project/actors/placeable_entity.dart';
 import 'package:mw_project/constants/computers_items.dart';
 import 'package:mw_project/constants/default_config.dart';
-import 'package:mw_project/firebase/firebase_user_score.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 import 'package:mw_project/objects/match_result.dart';
 import 'package:mw_project/ui/widget_overlay/defenders_selection.dart';
 import 'package:mw_project/objects/save_file.dart';
 import 'package:mw_project/ui/widget_overlay/game_over.dart';
 import 'package:mw_project/ui/widget_overlay/loading_screen.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../constants/team.dart';
 import '../../objects/audio_manager.dart';
@@ -150,6 +151,7 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     {
       gameRef.overlays.add(LoadingScreen.ID);
     }
+
     Map<String, dynamic>? saveData = await _grabSave();
     if(saveData != null)
       {
@@ -210,9 +212,8 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
         _currentMainWave += 2;
         _isStartingUp = true;
         gameRef.pauseEngine();
-        UserScoreSnapshot.updateWave(_currentMainWave);
         var json = jsonEncode(_createSave().toJson());
-        _uploadSaveToFirebase(json);
+        _saveGame(json);
       }
   }
 
@@ -243,18 +244,23 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
   //Nhận file lưu game
   Future<Map<String, dynamic>?> _grabSave() async
   {
-    final storageRef = FirebaseStorage.instance.ref();
+    final Directory appDocumentsDir = await getApplicationDocumentsDirectory();
+    final saveDir = await Directory(appDocumentsDir.path + '/.open_mw/saves').create(recursive: true);
+    File saveFile = File(saveDir.path + 'save_1.json');
+    String? dataFromStorage;
+    if(await saveFile.exists() != true)
+      {
+        resetMatch();
+      }
+    else
+      {
+        dataFromStorage = await saveFile.readAsString();
+      }
 
-    String currentId = FirebaseAuth.instance.currentUser!.uid;
-    final pathRef = storageRef.child("saves/${currentId}.json");
-    var dataFromStorage = await pathRef.getData().catchError((e) {
-      print("Save data does not exist!");
-      resetMatch();
-    });
     Map<String, dynamic>? data;
     if(dataFromStorage != null)
       {
-        data = jsonDecode(String.fromCharCodes(dataFromStorage));
+        data = jsonDecode(dataFromStorage);
       }
     return data;
   }
@@ -331,30 +337,17 @@ class MatchDirector extends Component with HasGameRef<MainframeWarfare>
     );
   }
 
-  //upload file lưu game lên Firebase
-  void _uploadSaveToFirebase(String jsonString)
+  //lưu trò chơi
+  void _saveGame(String jsonString) async
   {
     game.overlays.add(LoadingScreen.ID);
-    FirebaseStorage storage = FirebaseStorage.instance;
-
-    String currentId = FirebaseAuth.instance.currentUser!.uid;
-    Reference storageReference = storage.ref().child("saves/${currentId}.json");
-
-    UploadTask uploadTask = storageReference.putData(utf8.encode(jsonString));
-
-    uploadTask.then((p0) {
-      _selectedDefenders.clear();
-      _selectedDefenderItems.clear();
-      loadMatch();
-    }).whenComplete(() {
-
-    }).catchError((e) {
-      print("Error: " + e.toString());
-      if(game.overlays.isActive(LoadingScreen.ID))
-      {
-        game.overlays.remove(LoadingScreen.ID);
-      }
-    });
+    final Directory appDocumentsDir = await getApplicationDocumentsDirectory();
+    //final saveDir = await Directory(appDocumentsDir.path + '/saves').create();
+    File saveFile = File(appDocumentsDir.path + '/.open_mw/saves/save_1.json');
+    await saveFile.create(recursive: true);
+    var sink = saveFile.openWrite();
+    sink.write(jsonString);
+    sink.close();
   }
 
   //thêm defender entity vào danh sách

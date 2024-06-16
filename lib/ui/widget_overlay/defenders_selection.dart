@@ -49,39 +49,43 @@ class _DefenderItemState extends State<DefenderItem> {
         children: [
           Expanded(
             child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Image.asset("assets/images/hud/item_frames/computers/"
-                    "${widget.entity.getName()}.png", width: 128, height: 128,),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: IconButton(onPressed: () {
-                    setState(() {
-                      DefenderDescription.selectEntity(widget.entity);
-                    });
-                  }, icon: Icon(Icons.info, size: 36, color: Colors.blue.withOpacity(0.75),)),
+                fit: StackFit.expand,
+                children: [
+                    Image.asset("assets/images/hud/item_frames/computers/"
+                        "${widget.entity.getName()}.png",),
+                  widget.selected ? Icon(Icons.check, size: 128, color: Colors.red,) : Container(),
+                ],
+              ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IconButton(onPressed: () {
+                setState(() {
+                  DefenderDescription.selectEntity(widget.entity);
+                });
+              }, icon: Icon(Icons.info, size: 36, color: Colors.blue.withOpacity(0.75),)),
+              Container(
+                width: 64, height: 20,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Color(Colors.black.value),
+                      style: BorderStyle.solid,
+                      width: 1.0,
+                    ),
+                    color: Colors.white
                 ),
-                widget.selected ? Icon(Icons.check, size: 64, color: Colors.red,) : Container(),
-              ],
-            ),
-          ),Container(
-            width: 64, height: 20,
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Color(Colors.black.value),
-                    style: BorderStyle.solid,
-                    width: 1.0,
-                  ),
-                color: Colors.white
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(widget.entity.getPrice().toString(), style: TextStyle(
+                    fontFamily: "Silver", fontSize: 24, decoration: TextDecoration.none,
+                    fontWeight: FontWeight.normal, color: Colors.black,),),
+                ),
               ),
-              child: Align(
-                alignment: Alignment.center,
-                child: Text(widget.entity.getPrice().toString(), style: TextStyle(
-                      fontFamily: "Silver", fontSize: 24, decoration: TextDecoration.none,
-                      fontWeight: FontWeight.normal, color: Colors.black,),),
-              ),
-              ),
+            ],
+          )
+
         ],
     );
   }
@@ -133,19 +137,19 @@ class _DefenderSelectionState extends State<DefenderSelection> {
                         width: 128, height: 128,),
                       Text(
                         "Mô tả: " + DefenderDescription.getDescription()["desc"]!, style: TextStyle(
-                         fontSize: 12, decoration: TextDecoration.none,
+                         fontSize: 24, decoration: TextDecoration.none,
                         fontWeight: FontWeight.normal, color: Colors.black,),),
                       Text(
                         "Sức kháng cự: " + DefenderDescription.getDescription()["defence"]!, style: TextStyle(
-                         fontSize: 12, decoration: TextDecoration.none,
+                         fontSize: 24, decoration: TextDecoration.none,
                         fontWeight: FontWeight.normal, color: Colors.black,),),
                       Text(
                         "Sức tấn công: " + DefenderDescription.getDescription()["attack_strength"]!, style: TextStyle(
-                         fontSize: 12, decoration: TextDecoration.none,
+                         fontSize: 24, decoration: TextDecoration.none,
                         fontWeight: FontWeight.normal, color: Colors.black,),),
                       Text(
                         "Tốc độ tấn công: " + DefenderDescription.getDescription()["attack_speed"]!, style: TextStyle(
-                        fontSize: 12, decoration: TextDecoration.none,
+                        fontSize: 24, decoration: TextDecoration.none,
                         fontWeight: FontWeight.normal, color: Colors.black,),),
                     ],
                   ),
@@ -157,6 +161,7 @@ class _DefenderSelectionState extends State<DefenderSelection> {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
                   itemCount: registeredEntities.length,
                   itemBuilder: (context, index) => GestureDetector(
+                    behavior: HitTestBehavior.translucent,
                     onTap: () {
                       setState(() {
                         widget.selected[index] = !widget.selected[index];
@@ -196,7 +201,7 @@ class _DefenderSelectionState extends State<DefenderSelection> {
           ElevatedButton(
     onPressed: (widget.selectedCount == MAX_DEFENDERS_COUNT) ? () {
     FlameAudio.bgm.stop();
-    FlameAudio.bgm.play('bgm/deepdive.wav', volume: AudioManager.getBgmVolume().value);
+    //FlameAudio.bgm.play('bgm/deepdive.wav', volume: AudioManager.getBgmVolume().value);
     widget.gameRef.overlays.remove(DefenderSelection.ID);
     widget.gameRef.getDirector().loadDefendersList();
     widget.gameRef.resumeEngine();

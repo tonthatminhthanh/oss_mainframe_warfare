@@ -4,7 +4,7 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:mw_project/mainframe_warfare.dart';
 import 'package:mw_project/objects/match_result.dart';
-import 'package:mw_project/pages/share_result.dart';
+import 'package:mw_project/pages/main_menu.dart';
 import 'package:mw_project/ui/widget_overlay/wave_display.dart';
 
 import '../../objects/audio_manager.dart';
@@ -25,8 +25,7 @@ class _GameOverMenuState extends State<GameOverMenu> {
       onTap: () {
         widget.gameRef.overlays.remove(WaveDisplay.ID);
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => ShareResultPage(
-                wavesCount: MatchResult.getResult().mainWavesCount.value),)
+            MaterialPageRoute(builder: (context) => MainMenuPage())
         );
       },
       child: Container(
